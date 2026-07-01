@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/Built%20with-Rust-orange?logo=rust)](https://www.rust-lang.org/)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/abderazak/retro-homepage/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/abderazak-py/retro-homepage/releases)
 
 </div>
 
@@ -52,10 +52,13 @@ Open the CLI shell and you can run commands like `matrix`, `neofetch`, `ping`, a
 
 ### On Linux (homelab server)
 
-Download the binary from the [Releases](https://github.com/abderazak/retro-homepage/releases/latest) page and run it:
+Download the latest release for your architecture from the [Releases](https://github.com/abderazak-py/retro-homepage/releases/latest) page, or download and run via the terminal:
 
 ```bash
-chmod +x retro-homepage
+# Download and extract the latest release for x86_64
+curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.0-linux-x86_64.tar.gz
+tar -xzf retro-homepage-v1.0.0-linux-x86_64.tar.gz
+cd retro-homepage-v1.0.0-linux-x86_64
 ./retro-homepage
 ```
 
@@ -64,8 +67,10 @@ Then open `http://localhost:3000` in your browser.
 ### On Android (Termux)
 
 ```bash
-curl -LO https://github.com/abderazak/retro-homepage/releases/latest/download/retro-homepage
-chmod +x retro-homepage
+# Download and extract the latest release for ARM64
+curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.0-linux-aarch64.tar.gz
+tar -xzf retro-homepage-v1.0.0-linux-aarch64.tar.gz
+cd retro-homepage-v1.0.0-linux-aarch64
 pkg install termux-api   # for battery stats
 ./retro-homepage
 ```
@@ -100,7 +105,10 @@ python3 script.py run
 # cross-compile for ARM64 (Termux)
 python3 script.py cross
 
-# do everything
+# package release binaries into dist/ as .tar.gz archives
+python3 script.py package
+
+# do everything (minify, build, and cross-compile)
 python3 script.py all
 ```
 

@@ -103,6 +103,75 @@ def run_local(extra_args=[]):
     cmd = [binary_path] + extra_args
     return run_cmd(cmd, " ".join(cmd))
 
+def get_version():
+    try:
+        if os.path.exists("Cargo.toml"):
+            with open("Cargo.toml", "r") as f:
+                for line in f:
+                    if line.strip().startswith("version"):
+                        return line.split("=")[1].strip().replace('"', '')
+    except Exception as e:
+        print(f"{RED}Error reading version from Cargo.toml: {e}{RESET}")
+    return "1.0.0"
+
+def package():
+    print_header("📦 PACKAGING RELEASE BINARIES 📦")
+    version = get_version()
+    dist_dir = "dist"
+    
+    if os.path.exists(dist_dir):
+        shutil.rmtree(dist_dir)
+    os.makedirs(dist_dir)
+    
+    binaries = {
+        "x86_64": "target/release/retro-homepage",
+        "aarch64": "target/aarch64-unknown-linux-musl/release/retro-homepage"
+    }
+    
+    success = True
+    packaged_count = 0
+    for arch, path in binaries.items():
+        if not os.path.exists(path):
+            print(f"{YELLOW}Warning: Binary for {arch} not found at {path}. Skipping packaging for this target.{RESET}")
+            continue
+            
+        archive_name = f"retro-homepage-v{version}-linux-{arch}"
+        archive_path = os.path.join(dist_dir, archive_name)
+        
+        # Create a temp directory to hold the archive structure
+        temp_dir = os.path.join(dist_dir, f"temp_{arch}")
+        os.makedirs(temp_dir, exist_ok=True)
+        
+        try:
+            # Copy binary
+            shutil.copy2(path, os.path.join(temp_dir, "retro-homepage"))
+            
+            # Copy LICENSE and README.md if they exist
+            for doc in ["LICENSE", "README.md"]:
+                if os.path.exists(doc):
+                    shutil.copy2(doc, temp_dir)
+                    
+            # Create tarball
+            import tarfile
+            with tarfile.open(f"{archive_path}.tar.gz", "w:gz") as tar:
+                # Add contents of temp_dir but with archive_name as the root folder
+                tar.add(temp_dir, arcname=archive_name)
+                
+            print(f"{GREEN}✔ Packaged {arch} binary successfully to {archive_path}.tar.gz{RESET}")
+            packaged_count += 1
+        except Exception as e:
+            print(f"{RED}✘ Failed to package {arch}: {e}{RESET}")
+            success = False
+        finally:
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
+                
+    if packaged_count == 0:
+        print(f"{RED}✘ No binaries were found to package. Run 'python3 script.py all' or 'build'/'cross' first.{RESET}")
+        return False
+        
+    return success
+
 def print_help():
     print(f"\n{BOLD}Retro Homepage build manager script{RESET}")
     print("Usage: python3 script.py <command>")
@@ -112,6 +181,7 @@ def print_help():
     print("  cross    - Cross-compile for Android/Termux (ARM64)")
     print("  run      - Run the local backend server (served at localhost:3000)")
     print("  all      - Execute minify, build, and cross compilation")
+    print("  package  - Package release binaries into dist/ as .tar.gz archives")
     print("  help     - Show this help summary")
 
 def main():
@@ -131,6 +201,8 @@ def main():
         success = run_local(sys.argv[2:])
     elif cmd == "all":
         success = minify() and build_local() and build_cross()
+    elif cmd == "package":
+        success = package()
     elif cmd in ("help", "-h", "--help"):
         print_help()
         sys.exit(0)
