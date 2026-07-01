@@ -1,0 +1,4103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retro Homepage</title>
+  <meta name="description" content="Our family's private server, files, music, and status all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;700&family=VT323&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --green-bg: #0b0d0c;
+      --green-screen-bg: #041205;
+      --green-text: #39ff14;
+      --green-text-dim: #1ea01e;
+      --green-glow: rgba(57, 255, 20, 0.16);
+      --green-glow-intense: rgba(57, 255, 20, 0.45);
+      --green-border: #1ea01e;
+      --green-border-dim: #0c4207;
+
+      --amber-bg: #0f0d0a;
+      --amber-screen-bg: #140d02;
+      --amber-text: #fa0;
+      --amber-text-dim: #c78100;
+      --amber-glow: rgba(255, 170, 0, 0.16);
+      --amber-glow-intense: rgba(255, 170, 0, 0.45);
+      --amber-border: #c78100;
+      --amber-border-dim: #5c3b00;
+
+      --blue-bg: #0a0b0d;
+      --blue-screen-bg: #020b14;
+      --blue-text: #00d9ff;
+      --blue-text-dim: #007ba0;
+      --blue-glow: rgba(0, 217, 255, 0.16);
+      --blue-glow-intense: rgba(0, 217, 255, 0.45);
+      --blue-border: #00d9ff;
+      --blue-border-dim: #003042;
+
+      --sys-bg: var(--green-bg);
+      --sys-screen-bg: var(--green-screen-bg);
+      --sys-text: var(--green-text);
+      --sys-text-dim: var(--green-text-dim);
+      --sys-glow: var(--green-glow);
+      --sys-glow-intense: var(--green-glow-intense);
+      --sys-border: var(--green-border);
+      --sys-border-dim: var(--green-border-dim);
+
+      --chassis-bg: #2d2b27;
+      --chassis-border: #181715;
+      --chassis-highlight: #403e39;
+      --chassis-shadow: #141311;
+      --bezel-dark: #1d1c19;
+    }
+
+    body.theme-amber {
+      --sys-bg: var(--amber-bg);
+      --sys-screen-bg: var(--amber-screen-bg);
+      --sys-text: var(--amber-text);
+      --sys-text-dim: var(--amber-text-dim);
+      --sys-glow: var(--amber-glow);
+      --sys-glow-intense: var(--amber-glow-intense);
+      --sys-border: var(--amber-border);
+      --sys-border-dim: var(--amber-border-dim);
+    }
+
+    body.theme-blue {
+      --sys-bg: var(--blue-bg);
+      --sys-screen-bg: var(--blue-screen-bg);
+      --sys-text: var(--blue-text);
+      --sys-text-dim: var(--blue-text-dim);
+      --sys-glow: var(--blue-glow);
+      --sys-glow-intense: var(--blue-glow-intense);
+      --sys-border: var(--blue-border);
+      --sys-border-dim: var(--blue-border-dim);
+    }
+
+    body {
+      height: 100vh;
+      background-color: var(--sys-bg);
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--sys-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      overflow: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      height: 90vh;
+      background: radial-gradient(circle, var(--sys-glow) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.6;
+      transition: background 0.4s ease, transform 0.15s ease-out;
+    }
+
+    .retro-computer {
+      background-color: var(--chassis-bg);
+      border: 8px solid var(--chassis-border);
+      border-radius: 16px;
+      box-shadow:
+        inset 4px 4px 0 var(--chassis-highlight),
+        inset -4px -4px 0 var(--chassis-shadow),
+        0 25px 60px rgba(0, 0, 0, 0.85);
+      padding: 1.5rem;
+      width: 900px;
+      height: 670px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transform-origin: center;
+      flex-shrink: 0;
+    }
+
+    .ventilation {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 8px;
+    }
+
+    .vent-slit {
+      width: 45px;
+      height: 100%;
+      background-color: var(--chassis-border);
+      border-radius: 4px;
+      box-shadow: inset 1px 1px 0 var(--chassis-shadow);
+    }
+
+    .monitor-bezel {
+      background-color: var(--bezel-dark);
+      border: 6px solid var(--chassis-border);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow:
+        inset 0 10px 15px rgba(0, 0, 0, 0.65),
+        0 4px 0 var(--chassis-highlight);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-height: 0;
+    }
+
+    .screen-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 4px solid #141416;
+      box-shadow:
+        inset 0 0 100px rgba(0, 0, 0, 0.95),
+        0 0 20px rgba(0, 0, 0, 0.4);
+      background-color: var(--sys-screen-bg);
+      transition: background-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      transform-origin: center;
+    }
+
+    /* Screen Power Off Collapse Animation */
+    .screen-container.power-off {
+      animation: crt-power-down 0.45s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      background-color: #000 !important;
+    }
+
+    @keyframes crt-power-down {
+      0% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1) contrast(1);
+        opacity: 1;
+      }
+
+      40% {
+        transform: scaleY(0.01) scaleX(1);
+        filter: brightness(3) contrast(1.5);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scaleY(0.01) scaleX(0);
+        filter: brightness(10) contrast(3);
+        opacity: 0;
+      }
+    }
+
+    .monitor-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0.8rem 1rem;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .crt-scanlines {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
+      background-size: 100% 4px;
+      z-index: 120;
+      pointer-events: none;
+    }
+
+    .crt-effect {
+      animation: crt-flicker 0.18s infinite alternate;
+    }
+
+    @keyframes crt-flicker {
+      0% {
+        opacity: 0.985;
+        filter: contrast(1.02) brightness(0.98);
+      }
+
+      100% {
+        opacity: 0.995;
+        filter: contrast(0.98) brightness(1.02);
+      }
+    }
+
+    .crt-glare {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%),
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.45) 100%);
+      z-index: 121;
+      pointer-events: none;
+      transition: transform 0.15s ease-out;
+    }
+
+    .crt-roll-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.012);
+      box-shadow:
+        0 -25px 25px rgba(0, 0, 0, 0.15),
+        0 25px 25px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 120;
+      animation: crt-roll 10s linear infinite;
+    }
+
+    @keyframes crt-roll {
+      0% {
+        top: -60px;
+      }
+
+      100% {
+        top: 100%;
+      }
+    }
+
+    .crt-off .crt-scanlines,
+    .crt-off .crt-glare,
+    .crt-off .crt-roll-bar {
+      display: none !important;
+    }
+
+    .crt-off {
+      animation: none !important;
+      filter: none !important;
+      box-shadow: none !important;
+    }
+
+    .screen-booting {
+      animation: boot-screen 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: center;
+    }
+
+    @keyframes boot-screen {
+      0% {
+        transform: scaleY(0.003) scaleX(0);
+        filter: brightness(8);
+      }
+
+      35% {
+        transform: scaleY(0.003) scaleX(1);
+        filter: brightness(4);
+      }
+
+      100% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1);
+      }
+    }
+
+    .screen-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      height: 100%;
+      justify-content: space-between;
+      transition: opacity 0.2s ease;
+    }
+
+    .screen-content.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sys-metadata {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px dashed var(--sys-border-dim);
+      padding-bottom: 0.3rem;
+      font-size: 0.72rem;
+      color: var(--sys-text-dim);
+    }
+
+    .title-section {
+      text-align: center;
+      margin: 0;
+    }
+
+    .terminal-title-container {
+      display: inline-block;
+      border: 2px solid var(--sys-border);
+      padding: 0.4rem 1.2rem;
+      position: relative;
+      box-shadow: 0 0 8px var(--sys-glow);
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .terminal-title-container::before {
+      content: "[ CORE_SYSTEM ]";
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background-color: var(--sys-screen-bg);
+      padding: 0 5px;
+      font-size: 0.62rem;
+      color: var(--sys-text-dim);
+    }
+
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px var(--sys-glow-intense);
+      color: var(--sys-text);
+      line-height: 1.2;
+    }
+
+    .sys-tagline {
+      margin-top: 0.2rem;
+      font-size: 0.7rem;
+      color: var(--sys-text-dim);
+      letter-spacing: 1px;
+    }
+
+    .sys-cursor {
+      animation: blink 1.1s step-end infinite;
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* BIOS Log with integrated System Chart Canvas */
+    .bios-log {
+      font-size: 0.68rem;
+      color: var(--sys-text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border: 1px dashed var(--sys-border-dim);
+      padding: 0.3rem 0.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      height: 66px;
+    }
+
+    .bios-log-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-grow: 1;
+    }
+
+    .system-chart-container {
+      width: 140px;
+      height: 100%;
+      border: 1px solid var(--sys-border-dim);
+      background: rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .system-chart-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .chart-label {
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      font-size: 0.52rem;
+      color: var(--sys-text-dim);
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-auto-rows: minmax(105px, 1fr);
+      gap: 0.5rem;
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 4px 4px 4px 2px;
+    }
+
+    .board-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .board-grid::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .board-grid::-webkit-scrollbar-thumb {
+      background: var(--sys-border-dim);
+      border-radius: 3px;
+    }
+
+    .board-grid::-webkit-scrollbar-thumb:hover {
+      background: var(--sys-text);
+    }
+
+    .service-node {
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1.5px solid var(--sys-border-dim);
+      border-radius: 4px;
+      color: var(--sys-text);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+      outline: none;
+    }
+
+    .service-node:hover,
+    .service-node.focus-node,
+    .service-node:focus-visible {
+      border-color: var(--sys-text);
+      box-shadow: 0 0 12px var(--sys-glow);
+      transform: translateY(-2px);
+    }
+
+    .node-header {
+      background-color: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--sys-border-dim);
+      padding: 0.4rem 0.7rem;
+      font-size: 0.65rem;
+      color: var(--sys-text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.22s ease;
+    }
+
+    .service-node:hover .node-header,
+    .service-node.focus-node .node-header {
+      color: var(--sys-text);
+    }
+
+    .node-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-led {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--sys-text);
+      box-shadow: 0 0 8px var(--sys-text);
+      animation: led-blink 1.4s infinite;
+    }
+
+    @keyframes led-blink {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .node-body {
+      padding: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      flex-grow: 1;
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border: 1px solid var(--sys-border-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      transition: border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .service-node:hover .icon-box,
+    .service-node.focus-node .icon-box {
+      border-color: var(--sys-text);
+      box-shadow: 0 0 8px var(--sys-glow);
+    }
+
+    .node-icon {
+      width: 18px;
+      height: 18px;
+      stroke: var(--sys-text);
+      fill: none;
+      transition: transform 0.25s ease;
+    }
+
+    .service-node:hover .node-icon,
+    .service-node.focus-node .node-icon {
+      transform: scale(1.1);
+    }
+
+    .node-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .node-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-shadow: 0 0 5px var(--sys-glow);
+    }
+
+    .node-description {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--sys-text-dim);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .node-footer {
+      border-top: 1px dashed var(--sys-border-dim);
+      padding: 0.4rem 0.7rem;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .node-btn {
+      border: 1px solid var(--sys-border-dim);
+      padding: 0.2rem 0.5rem;
+      font-size: 0.65rem;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.4);
+      font-weight: bold;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .service-node:hover .node-btn,
+    .service-node.focus-node .node-btn {
+      border-color: var(--sys-text);
+      background-color: var(--sys-text);
+      color: var(--sys-screen-bg);
+      box-shadow: 0 0 8px var(--sys-glow);
+    }
+
+    .screen-footer {
+      border-top: 2px dashed var(--sys-border-dim);
+      padding-top: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: var(--sys-text-dim);
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .footer-stats {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .footer-signoff {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* BIOS Boot Overlay styling */
+    .boot-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--sys-screen-bg);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 1.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--sys-text);
+      overflow-y: auto;
+      line-height: 1.35;
+    }
+
+    .boot-overlay.hidden {
+      display: none;
+    }
+
+    .boot-stdout {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* Start Prompt Overlay styling */
+    .press-start-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--sys-screen-bg);
+      z-index: 110;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--sys-text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .press-start-overlay.hidden {
+      display: none;
+    }
+
+    .blink-text {
+      animation: blink 1.2s step-end infinite;
+      text-shadow: 0 0 8px var(--sys-glow-intense);
+    }
+
+    /* Terminal Console CLI Styling */
+    .cli-container {
+      position: absolute;
+      inset: 0;
+      background-color: var(--sys-screen-bg);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      padding: 0.8rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--sys-text);
+      line-height: 1.4;
+    }
+
+    .cli-container.hidden {
+      display: none;
+    }
+
+    .cli-output {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      scrollbar-width: none;
+      white-space: pre-wrap;
+    }
+
+    .cli-output::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cli-error {
+      color: #ff3333;
+    }
+
+    .cli-info {
+      color: var(--sys-text-dim);
+    }
+
+    .cli-success {
+      color: var(--sys-text);
+      text-shadow: 0 0 4px var(--sys-glow);
+    }
+
+    .cli-input-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-top: 1px dashed var(--sys-border-dim);
+      padding-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .cli-prompt {
+      color: var(--sys-text);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .cli-input {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--sys-text);
+      box-shadow: none;
+    }
+
+    /* Falling Matrix Screen Saver Canvas */
+    .matrix-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 95;
+      background-color: #000;
+    }
+
+    .matrix-canvas.hidden {
+      display: none;
+    }
+
+    /* Physical Controls updates on bezel */
+    .bezel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 4px solid var(--chassis-border);
+      padding-top: 0.8rem;
+      margin-top: 0.2rem;
+      gap: 0.6rem;
+      width: 100%;
+      height: 52px;
+      flex-wrap: wrap;
+    }
+
+    .chassis-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--chassis-border);
+      text-shadow: 1px 1px 0 var(--chassis-highlight);
+      letter-spacing: 0.5px;
+    }
+
+    .control-panel-group {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .control-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .control-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--chassis-border);
+      text-shadow: 1px 1px 0 var(--chassis-highlight);
+    }
+
+    .tactile-switch {
+      width: 44px;
+      height: 24px;
+      background-color: #1a1917;
+      border: 2px solid var(--chassis-border);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.8),
+        0 1px 1px var(--chassis-highlight);
+    }
+
+    .switch-handle {
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7a7a7e, #4a4a4e);
+      border: 1px solid #1a1a1c;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .tactile-switch.active .switch-handle {
+      transform: translateX(20px);
+      background: linear-gradient(135deg, #a5a5aa, #6a6a6e);
+    }
+
+    /* Red Tactile Button */
+    .tactile-button-red {
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle at 35% 35%, #ff3333, #990000);
+      border: 2px solid var(--chassis-border);
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .tactile-button-red:active {
+      transform: scale(0.9) translateY(1px);
+      box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Grey Tactile Button */
+    .tactile-button-grey {
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle at 35% 35%, #5a5750, #2c2a26);
+      border: 2px solid var(--chassis-border);
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .tactile-button-grey:active {
+      transform: scale(0.9) translateY(1px);
+      box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Theme indicators */
+    .theme-indicators {
+      display: flex;
+      gap: 4px;
+      margin-left: 6px;
+      background-color: #12110f;
+      border: 1.5px solid var(--chassis-border);
+      border-radius: 4px;
+      padding: 3px 5px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+      align-items: center;
+    }
+
+    .theme-led {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #1a1510;
+      transition: background-color 0.25s, box-shadow 0.25s;
+    }
+
+    .theme-led.led-green.active {
+      background-color: #39ff14;
+      box-shadow: 0 0 6px #39ff14, inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .theme-led.led-amber.active {
+      background-color: #fa0;
+      box-shadow: 0 0 6px #fa0, inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .theme-led.led-blue.active {
+      background-color: #00d9ff;
+      box-shadow: 0 0 6px #00d9ff, inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Rocker Switch */
+    .rocker-switch {
+      width: 26px;
+      height: 38px;
+      background-color: #12110f;
+      border: 2px solid var(--chassis-border);
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2px 0;
+    }
+
+    .rocker-handle {
+      display: block;
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(to bottom, #4a453f, #2d2b27);
+      border-radius: 2px;
+      border: 1px solid #1a1917;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .rocker-switch.off .rocker-handle {
+      transform: translateY(14px);
+      background: linear-gradient(to bottom, #23211f, #12110f);
+      box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Floppy Drive slot */
+    .floppy-drive {
+      display: flex;
+      align-items: center;
+      width: 120px;
+      height: 24px;
+      background-color: #1a1917;
+      border: 2px solid var(--chassis-border);
+      border-radius: 2px;
+      padding: 0 6px;
+      gap: 6px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
+    }
+
+    .floppy-slot-bar {
+      flex-grow: 1;
+      height: 3px;
+      background-color: #000;
+      border-radius: 1px;
+      position: relative;
+    }
+
+    .floppy-slot-bar::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background-color: #2b2a26;
+    }
+
+    .floppy-eject-btn {
+      width: 10px;
+      height: 8px;
+      background-color: #2b2b2b;
+      border: 1px solid #111;
+      box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .floppy-led-light {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #2a1100;
+      transition: background-color 0.15s, box-shadow 0.15s;
+    }
+
+    .floppy-led-light.reading {
+      background-color: #ff3300;
+      box-shadow: 0 0 6px #ff3300;
+    }
+
+    .floppy-led-light.writing {
+      background-color: #33ff33;
+      box-shadow: 0 0 6px #33ff33;
+    }
+
+    .power-led-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .led-light {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background-color: var(--sys-text);
+      box-shadow: 0 0 10px var(--sys-text);
+      border: 1px solid var(--chassis-border);
+      transition: all 0.4s ease;
+    }
+
+    .led-light.off {
+      background-color: #111 !important;
+      box-shadow: none !important;
+    }
+
+    /* System Monitor Dashboard Overlay styling */
+    .monitor-dashboard {
+      position: absolute;
+      inset: 0;
+      background-color: var(--sys-screen-bg);
+      z-index: 85;
+      display: flex;
+      flex-direction: column;
+      padding: 0.8rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--sys-text);
+      line-height: 1.4;
+      justify-content: space-between;
+    }
+
+    .monitor-dashboard.hidden {
+      display: none !important;
+    }
+
+    .monitor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed var(--sys-border-dim);
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .monitor-close-btn {
+      background: transparent;
+      border: 1px solid var(--sys-border-dim);
+      color: var(--sys-text-dim);
+      font-family: inherit;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.4rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+
+    .monitor-close-btn:hover {
+      border-color: var(--sys-text);
+      color: var(--sys-text);
+      box-shadow: 0 0 6px var(--sys-glow);
+    }
+
+    .monitor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      flex-grow: 1;
+      min-height: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-panel {
+      border: 1px solid var(--sys-border-dim);
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+    }
+
+    .panel-header {
+      font-size: 0.62rem;
+      color: var(--sys-text-dim);
+      border-bottom: 1px dashed var(--sys-border-dim);
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .panel-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .metric-row.sub-row {
+      font-size: 0.62rem;
+      color: var(--sys-text-dim);
+      margin-top: 0.1rem;
+    }
+
+    .metric-label {
+      font-weight: bold;
+    }
+
+    .metric-value {
+      font-size: 1rem;
+      font-weight: bold;
+      text-shadow: 0 0 5px var(--sys-glow-intense);
+    }
+
+    .progress-bar-container {
+      font-size: 0.65rem;
+      line-height: 1;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      color: var(--sys-text);
+      text-shadow: 0 0 4px var(--sys-glow);
+    }
+
+    .monitor-footer {
+      border-top: 2px dashed var(--sys-border-dim);
+      padding-top: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: var(--sys-text-dim);
+      flex-shrink: 0;
+    }
+
+    .api-status-tag {
+      font-weight: bold;
+      text-shadow: 0 0 4px var(--sys-glow);
+      color: var(--sys-text);
+    }
+
+    .api-status-tag.offline {
+      color: #ff3333;
+      text-shadow: 0 0 4px rgba(255, 51, 51, 0.45);
+      animation: led-blink 1s infinite;
+    }
+
+    .handheld-controls {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+        height: 100dvh;
+      }
+
+      .retro-computer {
+        width: 100%;
+        height: 100%;
+        max-height: 720px;
+        max-width: 420px;
+        padding: 1rem 1rem 0.8rem 1rem;
+        border-radius: 20px;
+        gap: 0.6rem;
+        background-color: #8c8275;
+        border: 6px solid #4d443a;
+        box-shadow:
+          inset 3px 3px 0 #b3a99e,
+          inset -3px -3px 0 #5c5348,
+          0 15px 30px rgba(0, 0, 0, 0.5);
+        transform: none !important;
+      }
+
+      .ventilation {
+        display: none;
+      }
+
+      .monitor-bezel {
+        padding: 0.6rem;
+        border-width: 4px;
+        border-radius: 8px;
+        background-color: #4a453f;
+      }
+
+      .screen-container {
+        height: auto;
+        flex-grow: 1;
+        align-self: stretch;
+      }
+
+      .monitor-screen {
+        flex-grow: 1;
+        overflow-y: hidden;
+        min-height: 0;
+        padding: 1rem 0.8rem;
+        display: block;
+      }
+
+      .monitor-screen.allow-scroll {
+        overflow-y: auto;
+      }
+
+      .screen-content {
+        gap: 0.9rem;
+        height: auto;
+      }
+
+      .bios-log {
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+
+      .system-chart-container {
+        width: 100%;
+        height: 50px;
+      }
+
+      .board-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        flex: none;
+        gap: 0.8rem;
+        overflow-y: visible;
+      }
+
+      .service-node {
+        height: auto;
+      }
+
+      .service-node:hover,
+      .service-node.focus-node {
+        transform: translateY(-4px);
+      }
+
+      .node-header {
+        background-color: rgba(255, 255, 255, 0.03);
+        border-bottom: 2px solid var(--sys-border-dim);
+        padding: 0.5rem 0.8rem;
+        font-size: 0.78rem;
+      }
+
+      .node-body {
+        padding: 0.8rem;
+        gap: 0.8rem;
+        align-items: stretch;
+      }
+
+      .icon-box {
+        width: 40px;
+        height: 40px;
+      }
+
+      .node-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .node-title {
+        font-size: 1.05rem;
+      }
+
+      .node-description {
+        display: block;
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+
+      .node-footer {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+        justify-content: center;
+        display: flex;
+      }
+
+      .node-btn {
+        width: auto;
+        padding: 0.25rem 0.65rem;
+        font-size: 0.7rem;
+      }
+
+      .title-section {
+        margin: 0.2rem 0;
+      }
+
+      .terminal-title-container {
+        padding: 0.5rem 0.8rem;
+      }
+
+      .sys-metadata,
+      .screen-footer {
+        font-size: 0.75rem;
+      }
+
+      .footer-stats {
+        display: none;
+      }
+
+      .bezel-controls {
+        border-top: none;
+        padding-top: 0.2rem;
+        margin-top: 0;
+        justify-content: center;
+        height: auto;
+      }
+
+      .chassis-label,
+      .floppy-drive {
+        display: none;
+      }
+
+      .control-panel-group {
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .handheld-controls {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1.5rem;
+        border-top: 3px solid #70675c;
+        gap: 1rem;
+        position: relative;
+      }
+
+      .dpad {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        justify-self: start;
+        margin-left: 10px;
+      }
+
+      .dpad-center {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        width: 30px;
+        height: 30px;
+        background-color: #2b2b2b;
+        z-index: 2;
+        box-shadow: inset 1px 1px 0 #444;
+      }
+
+      .dpad-btn {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #2b2b2b;
+        cursor: pointer;
+        box-shadow:
+          inset 1px 1px 0 #444,
+          1px 2px 2px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+      }
+
+      .dpad-btn:active {
+        background-color: #1a1a1a;
+        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.8);
+      }
+
+      .dpad-btn::after {
+        content: "";
+        display: block;
+        border: 5px solid transparent;
+      }
+
+      .dpad-btn.up {
+        top: 0;
+        left: 30px;
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dpad-btn.up::after {
+        border-bottom-color: #111;
+        margin-bottom: 4px;
+      }
+
+      .dpad-btn.down {
+        bottom: 0;
+        left: 30px;
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dpad-btn.down::after {
+        border-top-color: #111;
+        margin-top: 4px;
+      }
+
+      .dpad-btn.left {
+        top: 30px;
+        left: 0;
+        border-radius: 4px 0 0 4px;
+      }
+
+      .dpad-btn.left::after {
+        border-right-color: #111;
+        margin-right: 4px;
+      }
+
+      .dpad-btn.right {
+        top: 30px;
+        right: 0;
+        border-radius: 0 4px 4px 0;
+      }
+
+      .dpad-btn.right::after {
+        border-left-color: #111;
+        margin-left: 4px;
+      }
+
+      .speaker-grill {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        transform: rotate(-28deg);
+        width: 45px;
+        justify-self: center;
+      }
+
+      .speaker-grill .slit {
+        height: 5px;
+        background-color: #5c5348;
+        border-radius: 3px;
+        box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 14px;
+        justify-self: end;
+        margin-right: 10px;
+        background-color: #7b7165;
+        padding: 8px 12px;
+        border-radius: 35px;
+        box-shadow:
+          inset -1px -1px 1px #b3a99e,
+          inset 1px 1px 2px #4d443a,
+          0 2px 4px rgba(0, 0, 0, 0.15);
+        transform: rotate(-28deg);
+      }
+
+      .action-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: rgba(0, 0, 0, 0.6);
+        transform: rotate(28deg);
+        transition: transform 0.1s ease;
+      }
+
+      .btn-a,
+      .btn-b {
+        background: linear-gradient(135deg, #e53e3e, #9b2c2c);
+        box-shadow:
+          0 3px 0 #6e1f1f,
+          inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      }
+
+      .btn-a:active,
+      .btn-b:active {
+        transform: rotate(28deg) translateY(2px);
+        box-shadow:
+          0 1px 0 #6e1f1f,
+          inset 0 1px 3px rgba(0, 0, 0, 0.6);
+      }
+
+      .monitor-dashboard {
+        overflow-y: auto;
+      }
+
+      .monitor-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        flex: none;
+        gap: 0.6rem;
+      }
+
+
+    }
+
+    /* Setup Screen Wizard Overlay Styles */
+    .setup-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--sys-bg);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      font-family: inherit;
+      color: var(--sys-text);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .setup-overlay.hidden {
+      display: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .setup-window {
+      max-width: 580px;
+      width: 100%;
+      max-height: 98%;
+      border: 1px solid var(--sys-border-dim);
+      background: var(--sys-bg);
+      box-shadow: 0 0 15px rgba(0, 255, 100, 0.05);
+      padding: 12px 15px;
+      border-radius: 4px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .setup-grid-2 {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 15px;
+      margin-bottom: 12px;
+      align-items: end;
+    }
+
+    #settings-nodes-list {
+      max-height: 175px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    #settings-nodes-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #settings-nodes-list::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    #settings-nodes-list::-webkit-scrollbar-thumb {
+      background: var(--sys-border-dim);
+      border-radius: 3px;
+    }
+
+    #settings-nodes-list::-webkit-scrollbar-thumb:hover {
+      background: var(--sys-text);
+    }
+
+    .setup-header {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--sys-text);
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+    }
+
+    .setup-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .setup-row label {
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: var(--sys-text);
+      letter-spacing: 0.5px;
+    }
+
+    .setup-row input,
+    .setup-row textarea,
+    .setup-row select {
+      background-color: #0c0c0b !important;
+      border: 1px solid var(--sys-border-dim) !important;
+      color: var(--sys-text) !important;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    .setup-row input::placeholder,
+    .setup-row textarea::placeholder {
+      color: var(--sys-border-dim) !important;
+      opacity: 0.7;
+    }
+
+    .setup-row input:-webkit-autofill,
+    .setup-row input:-webkit-autofill:hover,
+    .setup-row input:-webkit-autofill:focus,
+    .setup-row textarea:-webkit-autofill,
+    .setup-row textarea:-webkit-autofill:hover,
+    .setup-row textarea:-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--sys-text) !important;
+      -webkit-box-shadow: 0 0 0px 1000px #0c0c0b inset !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    .setup-row input:focus,
+    .setup-row textarea:focus,
+    .setup-row select:focus {
+      border-color: var(--sys-text) !important;
+      box-shadow: 0 0 5px var(--sys-text) !important;
+    }
+
+    .setup-section-title {
+      font-weight: bold;
+      margin: 25px 0 15px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--sys-text);
+      border-bottom: 1px dashed var(--sys-border-dim);
+      padding-bottom: 8px;
+    }
+
+    .setup-node-form {
+      border: 1px dashed var(--sys-border-dim);
+      padding: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+    }
+
+    .setup-node-form .btn-remove {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: #ff4444;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: inherit;
+      font-weight: bold;
+      padding: 2px 6px;
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 2px;
+    }
+
+    .setup-node-form .btn-remove:hover {
+      background: rgba(255, 68, 68, 0.1);
+      border-color: #ff4444;
+    }
+
+    .setup-icon-selector {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .setup-icon-option {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--sys-border-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 4px;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .setup-icon-option:hover {
+      border-color: var(--sys-text);
+    }
+
+    .setup-icon-option.selected {
+      border-color: var(--sys-text);
+      background: rgba(0, 255, 100, 0.15);
+      box-shadow: 0 0 8px var(--sys-text);
+    }
+
+    .setup-icon-option svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--sys-text);
+    }
+
+    .char-counter {
+      align-self: flex-end;
+      font-size: 0.75rem;
+      color: var(--sys-border-dim);
+      margin-top: 4px;
+    }
+
+    .setup-btns-row {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .setup-btn {
+      background: transparent;
+      border: 1px solid var(--sys-text);
+      color: var(--sys-text);
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 2px;
+      font-weight: bold;
+      transition: all 0.1s ease;
+    }
+
+    .setup-btn:hover {
+      background: var(--sys-glow);
+      box-shadow: 0 0 8px var(--sys-text);
+    }
+
+    .setup-btn-save {
+      border-color: var(--sys-text) !important;
+      background: var(--sys-glow) !important;
+    }
+
+    .setup-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Settings List Items CSS */
+    .settings-node-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 1px dashed var(--sys-border-dim);
+      margin-bottom: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    .settings-node-row-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .settings-node-row-info svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--sys-text);
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .settings-node-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .settings-action-icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--sys-text);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      border-radius: 2px;
+      border: 1px solid var(--sys-border-dim);
+    }
+
+    .settings-action-icon-btn:hover {
+      box-shadow: 0 0 5px var(--sys-text);
+      border-color: var(--sys-text);
+      background: rgba(0, 255, 100, 0.1);
+    }
+
+    .settings-action-icon-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--sys-text);
+      stroke-width: 2;
+    }
+
+    .setup-input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-save-name {
+      padding: 6px 12px;
+      white-space: nowrap;
+    }
+
+    .setup-section-header {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed var(--sys-border-dim);
+      padding-bottom: 6px;
+    }
+
+    .btn-add-node {
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    .btn-node-order {
+      font-size: 0.8rem;
+      padding: 4px 6px;
+      min-width: 24px;
+      white-space: nowrap;
+    }
+
+    .btn-node-modify,
+    .btn-node-delete {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .btn-node-delete {
+      border-color: #ff4444;
+      color: #ff4444;
+    }
+
+    .setup-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: var(--sys-border-dim);
+      color: var(--sys-border-dim);
+      box-shadow: none;
+    }
+
+    .setup-btn:disabled:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    /* Mobile Settings Page Optimizations */
+    @media (max-width: 768px) {
+      .setup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 6px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: block;
+        box-sizing: border-box;
+      }
+
+      .setup-window {
+        max-height: none;
+        height: auto;
+        overflow: visible;
+        padding: 10px 8px;
+        margin: 5px auto;
+      }
+
+      .setup-header {
+        font-size: clamp(0.65rem, 4.2vw, 0.8rem);
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .setup-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .setup-icon-selector {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: flex-start;
+      }
+
+      .setup-icon-option {
+        width: 32px;
+        height: 32px;
+        padding: 5px;
+      }
+
+      .setup-icon-option svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .setup-btns-row {
+        gap: 8px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .setup-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .settings-node-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 8px;
+      }
+
+      .settings-node-row-info {
+        font-size: 0.85rem;
+      }
+
+      .settings-node-actions {
+        display: grid;
+        grid-template-columns: auto auto 1fr 1fr;
+        gap: 6px;
+        width: 100%;
+      }
+
+      .btn-node-order {
+        padding: 4px 2px;
+        min-width: 20px;
+      }
+
+      .btn-node-modify,
+      .btn-node-delete {
+        padding: 4px 2px;
+        font-size: 0.75rem;
+      }
+
+      #settings-nodes-list {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+
+      .setup-input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .setup-input-group button {
+        width: 100%;
+      }
+
+      .setup-section-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+        text-align: center;
+      }
+
+      .setup-section-header .setup-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="retro-computer">
+
+    <div class="ventilation" aria-hidden="true">
+      <div class="vent-slit"></div>
+      <div class="vent-slit"></div>
+      <div class="vent-slit"></div>
+      <div class="vent-slit"></div>
+      <div class="vent-slit"></div>
+    </div>
+
+    <div class="monitor-bezel">
+
+      <!-- Start with screen-booting class initially -->
+      <div class="screen-container crt-effect screen-booting">
+        <div class="crt-scanlines" aria-hidden="true"></div>
+        <div class="crt-glare" aria-hidden="true"></div>
+        <div class="crt-roll-bar" aria-hidden="true"></div>
+
+        <main class="monitor-screen" aria-label="Main system interface">
+
+          <!-- Interactive Start Prompt (Autoplay solver) -->
+          <div id="press-start-overlay" class="press-start-overlay">
+            <div class="blink-text">&gt;&gt; SYSTEM READY. CLICK TO INITIALIZE CORE CONSOLE &lt;&lt;</div>
+          </div>
+
+          <!-- BIOS Boot sequence overlay -->
+          <div id="boot-overlay" class="boot-overlay hidden">
+            <div class="boot-stdout" id="boot-stdout"></div>
+          </div>
+
+          <!-- System Configuration Setup Overlay -->
+          <div id="setup-overlay" class="setup-overlay hidden">
+            <div class="setup-window">
+              <!-- Settings List View -->
+              <div id="settings-list-view">
+                <div class="setup-header" id="setup-view-title">┌── SYSTEM CONFIGURATION UTILITY ──┐</div>
+                <div class="setup-body">
+                  <div class="setup-grid-2">
+                    <div class="setup-row" id="setup-server-name-row" style="margin-bottom: 0;">
+                      <label for="settings-server-name">SERVER NAME:</label>
+                      <div class="setup-input-group">
+                        <input type="text" id="settings-server-name" placeholder="e.g. My Home Server"
+                          style="flex-grow: 1; padding: 6px;" />
+                        <button type="button" class="setup-btn btn-save-name" id="btn-save-server-name"
+                          onclick="saveConfigName()">[ SAVE ]</button>
+                      </div>
+                    </div>
+
+                    <div class="setup-row" id="setup-crt-row" style="margin-bottom: 0;">
+                      <label style="margin-bottom: 5px;">CRT SCANLINES:</label>
+                      <button type="button" class="setup-btn" id="settings-crt-toggle" onclick="toggleCrtLinesSetting()"
+                        style="width: 100%; padding: 6px 12px; height: 35px; box-sizing: border-box;">[ ON ]</button>
+                    </div>
+                  </div>
+
+                  <div id="setup-nodes-section">
+                    <div class="setup-section-header">
+                      <span class="setup-section-title">┌─ HOMEPAGE NODES ─┐</span>
+                      <button type="button" class="setup-btn btn-add-node" onclick="openNodeEditor()">[ + ADD NODE
+                        ]</button>
+                    </div>
+
+                    <div id="settings-nodes-list" style="margin-bottom: 15px;">
+                      <!-- Dynamic settings list items -->
+                    </div>
+                  </div>
+
+                  <div class="setup-btns-row" id="setup-wizard-btns">
+                    <!-- Dynamic next/save buttons for the wizard -->
+                  </div>
+
+
+
+
+                </div>
+              </div>
+
+              <!-- Settings Node Editor View (Hidden by default) -->
+              <div id="settings-node-editor-view" class="hidden">
+                <div class="setup-header" id="node-editor-title">┌── EDIT NODE ──┐</div>
+                <div class="setup-body">
+                  <input type="hidden" id="edit-node-index" value="-1" />
+
+                  <div class="setup-grid-2" style="align-items: start;">
+                    <div class="setup-row" style="margin-bottom: 0;">
+                      <label>NODE NAME:</label>
+                      <input type="text" id="edit-node-name" placeholder="e.g. Navidrome" required
+                        style="padding: 6px;" />
+                    </div>
+                    <div class="setup-row" style="margin-bottom: 0;">
+                      <label>SELECT ICON:</label>
+                      <div class="setup-icon-selector" style="gap: 2px; padding: 2px;">
+                        <div class="setup-icon-option" data-icon="storage" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <path
+                              d="M13 7L11.8845 4.76892C11.5634 4.1268 11.4029 3.80573 11.1634 3.57116C10.9516 3.36373 10.6963 3.20597 10.4161 3.10931C10.0992 3 9.74021 3 9.02229 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V7M2 7H17.2C18.8802 7 19.7202 7 20.362 7.32698C20.9265 7.6146 21.3854 8.07354 21.673 8.63803C22 9.27976 22 10.1198 22 11.8V16.2C22 17.8802 22 18.7202 21.673 19.362C21.3854 19.9265 20.9265 20.362 20.362 20.673C19.7202 21 18.8802 21 17.2 21H6.8C5.11984 21 4.27976 21 3.63803 20.673C3.07354 20.3854 2.6146 19.9265 2.32698 19.362C2 18.7202 2 17.8802 2 16.2V7ZM9 14L11 16L15.5 11.5" />
+                          </svg>
+                        </div>
+                        <div class="setup-icon-option" data-icon="audio" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                          </svg>
+                        </div>
+                        <div class="setup-icon-option" data-icon="diagnostic" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <rect x="2" y="3" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="7" x2="6.01" y2="7"></line>
+                            <line x1="10" y1="7" x2="14" y2="7"></line>
+                            <rect x="2" y="13" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="17" x2="6.01" y2="17"></line>
+                            <line x1="10" y1="17" x2="14" y2="17"></line>
+                          </svg>
+                        </div>
+
+                        <div class="setup-icon-option" data-icon="globe" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path
+                              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                          </svg>
+                        </div>
+                        <div class="setup-icon-option" data-icon="terminal" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                          </svg>
+                        </div>
+                        <div class="setup-icon-option" data-icon="custom" onclick="selectEditorIcon(this)"
+                          style="padding: 4px;">
+                          <span
+                            style="font-size: 0.65rem; font-weight: bold; text-align: center; width: 100%;">SVG</span>
+                        </div>
+                      </div>
+                      <input type="hidden" id="edit-node-icon-type" value="globe" />
+                    </div>
+                  </div>
+
+                  <div class="setup-row hidden" id="edit-node-custom-svg-row" style="margin-top: 8px;">
+                    <label>CUSTOM SVG CODE:</label>
+                    <textarea id="edit-node-custom-svg"
+                      placeholder="e.g. &lt;svg viewBox='0 0 24 24'&gt;...&lt;/svg&gt;" rows="1"
+                      style="padding: 6px; resize: none;"></textarea>
+                  </div>
+
+                  <div class="setup-row" style="margin-top: 8px;">
+                    <label>DESCRIPTION (MAX 95 CHARS):</label>
+                    <textarea id="edit-node-desc" placeholder="e.g. Listen to audio streams" maxlength="95" rows="1"
+                      required style="padding: 6px; resize: none;" oninput="updateCharCounter(this)"></textarea>
+                    <div
+                      style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--sys-border-dim); margin-top: 2px;">
+                      <span>Details about this service</span>
+                      <span class="char-counter" id="edit-node-desc-counter">95 chars remaining</span>
+                    </div>
+                  </div>
+
+                  <div class="setup-grid-2" style="margin-top: 8px;">
+                    <div class="setup-row" style="margin-bottom: 0;">
+                      <label>NODE PUBLIC/REMOTE URL:</label>
+                      <input type="text" id="edit-node-url" placeholder="e.g. https://files.example.com" required
+                        style="padding: 6px;" />
+                    </div>
+                    <div class="setup-row" style="margin-bottom: 0;">
+                      <label>NODE LOCAL URL (OPTIONAL):</label>
+                      <input type="text" id="edit-node-local-url" placeholder="e.g. http://localhost:18650"
+                        style="padding: 6px;" />
+                    </div>
+                  </div>
+
+                  <div class="setup-btns-row" style="margin-top: 12px;">
+                    <button type="button" class="setup-btn" onclick="closeNodeEditor()">[ CANCEL ]</button>
+                    <button type="button" class="setup-btn setup-btn-save" onclick="saveNodeEditorItem()">[ SAVE NODE
+                      ]</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Monitor Dashboard Overlay -->
+          <div id="monitor-dashboard" class="monitor-dashboard hidden">
+            <div class="monitor-header">
+              <span>root@home-srv:~# sysmonitor --live</span>
+              <button id="btn-close-monitor" class="monitor-close-btn" aria-label="Close monitor">[CLOSE]</button>
+            </div>
+
+            <div class="monitor-grid">
+              <!-- CPU Panel -->
+              <div class="metric-panel">
+                <div class="panel-header">CPU TELEMETRY</div>
+                <div class="panel-body">
+                  <div class="metric-row">
+                    <span class="metric-label">LOAD:</span>
+                    <span class="metric-value" id="cpu-load-val">0.0%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <span class="progress-bar-fill" id="cpu-bar">░░░░░░░░░░░░░░░░░░░░</span>
+                  </div>
+                  <div class="metric-row sub-row">
+                    <span>CORES: <span id="cpu-cores-val">8</span></span>
+                    <span>FREQ: <span id="cpu-freq-val">1600</span>MHz</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Battery Panel -->
+              <div class="metric-panel">
+                <div class="panel-header">POWER SUPPLY (BATTERY)</div>
+                <div class="panel-body">
+                  <div class="metric-row">
+                    <span class="metric-label">CHARGE:</span>
+                    <span class="metric-value" id="bat-charge-val">0%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <span class="progress-bar-fill" id="bat-bar">░░░░░░░░░░░░░░░░░░░░</span>
+                  </div>
+                  <div class="metric-row sub-row">
+                    <span>STATUS: <span id="bat-status-val">Unknown</span></span>
+                    <span>TEMP: <span id="bat-temp-val">0.0</span>°C</span>
+                  </div>
+                  <div class="metric-row sub-row">
+                    <span>HEALTH: <span id="bat-health-val">Unknown</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RAM Panel -->
+              <div class="metric-panel">
+                <div class="panel-header">RAM UTILIZATION</div>
+                <div class="panel-body">
+                  <div class="metric-row">
+                    <span class="metric-label">USAGE:</span>
+                    <span class="metric-value" id="ram-pct-val">0%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <span class="progress-bar-fill" id="ram-bar">░░░░░░░░░░░░░░░░░░░░</span>
+                  </div>
+                  <div class="metric-row sub-row">
+                    <span>USED: <span id="ram-used-val">0</span>MB</span>
+                    <span>TOTAL: <span id="ram-total-val">0</span>MB</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Storage Panel -->
+              <div class="metric-panel">
+                <div class="panel-header">STORAGE PARTITION (/DATA)</div>
+                <div class="panel-body">
+                  <div class="metric-row">
+                    <span class="metric-label">USED:</span>
+                    <span class="metric-value" id="storage-pct-val">0%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <span class="progress-bar-fill" id="storage-bar">░░░░░░░░░░░░░░░░░░░░</span>
+                  </div>
+                  <div class="metric-row sub-row">
+                    <span>USED: <span id="storage-used-val">0.0</span>GB</span>
+                    <span>TOTAL: <span id="storage-total-val">0.0</span>GB</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="monitor-footer">
+              <span>UPTIME: <span id="monitor-uptime-val">00d 00h 00m</span></span>
+              <span id="monitor-api-status" class="api-status-tag">POLLING ACTIVE</span>
+            </div>
+          </div>
+
+          <!-- Interactive CLI Terminal Drawer -->
+          <div id="cli-container" class="cli-container hidden">
+            <canvas id="matrix-canvas" class="matrix-canvas hidden"></canvas>
+            <div class="cli-output" id="cli-output"></div>
+            <div class="cli-input-line">
+              <span class="cli-prompt">root@home-srv:~#</span>
+              <input type="text" id="cli-input" class="cli-input" autofocus autocomplete="off" spellcheck="false"
+                aria-label="Terminal input" />
+            </div>
+          </div>
+
+          <!-- Main Screen GUI content -->
+          <div class="screen-content hidden" id="gui-content">
+
+            <header class="sys-metadata" aria-label="System status information">
+              <span>CORE V4.8.2</span>
+              <span>ONLINE</span>
+              <span class="system-time" id="system-time">00:00:00</span>
+            </header>
+
+            <section class="title-section">
+              <div class="terminal-title-container">
+                <h1>RETRO HOMEPAGE</h1>
+                <p class="sys-tagline">> ACCESSING LOCAL NETWORK CHANNELS<span class="sys-cursor">_</span></p>
+              </div>
+            </section>
+
+            <div class="bios-log" aria-label="System log summary">
+              <div class="bios-log-text">
+                <div>[SYS CONFIG: CORES NOMINAL]</div>
+                <div id="bios-cores">CORES: 8x NOMINAL // NETWORK ACTIVE</div>
+                <div style="color: var(--sys-text); font-weight: bold;">>> SELECT NODE TO CONNECT</div>
+              </div>
+              <!-- Real-time Sparkline Graph Widget -->
+              <div class="system-chart-container" id="system-chart">
+                <span class="chart-label">sys load</span>
+                <canvas class="system-chart-canvas" id="system-chart-canvas"></canvas>
+              </div>
+            </div>
+
+            <div class="board-grid" id="board-grid" role="list">
+            </div>
+
+            <footer class="screen-footer">
+              <div class="footer-stats">
+                <span>UPTIME: <span id="footer-uptime-val">NOMINAL</span></span>
+                <span>TEMP: <span id="footer-temp-val">35.8°C</span></span>
+                <span>CPU_LOAD: <span id="footer-cpu-val">NOMINAL</span></span>
+              </div>
+              <div class="footer-signoff">
+                <span>Running 24/7 at home</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+            </footer>
+
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bezel controls panel -->
+    <div class="bezel-controls">
+      <div class="chassis-label">SYS_CONSOLE TYPE HOME-SRV</div>
+
+      <!-- Simulated Floppy Disk Drive -->
+      <div class="floppy-drive">
+        <div class="floppy-slot-bar"></div>
+        <div class="floppy-led-light" id="floppy-led" role="presentation"></div>
+        <div class="floppy-eject-btn" role="presentation"></div>
+      </div>
+
+      <div class="control-panel-group">
+        <!-- CRT Toggles (Settings Trigger) -->
+        <div class="control-item">
+          <span class="control-label">SETTINGS</span>
+          <button class="tactile-switch" id="btn-crt" aria-label="Toggle settings configuration page">
+            <span class="switch-handle"></span>
+          </button>
+        </div>
+
+        <!-- CLI Console mode toggle -->
+        <div class="control-item">
+          <span class="control-label">CLI SHELL</span>
+          <button class="tactile-switch" id="btn-cli" aria-label="Toggle command prompt CLI terminal mode">
+            <span class="switch-handle"></span>
+          </button>
+        </div>
+
+        <!-- Cycle Themes -->
+        <div class="control-item">
+          <span class="control-label">THEME</span>
+          <button class="tactile-button-grey" id="btn-theme"
+            aria-label="Cycle color themes green, amber, blue"></button>
+          <div class="theme-indicators" aria-hidden="true">
+            <div class="theme-led led-green" id="led-theme-green" title="Green Theme"></div>
+            <div class="theme-led led-amber" id="led-theme-amber" title="Amber Theme"></div>
+            <div class="theme-led led-blue" id="led-theme-blue" title="Blue Theme"></div>
+          </div>
+        </div>
+
+        <!-- Hardware Reset -->
+        <div class="control-item">
+          <span class="control-label">RESET</span>
+          <button class="tactile-button-red" id="btn-reset" aria-label="Hardware System reboot"></button>
+        </div>
+
+        <!-- Power Switch starts on -->
+        <div class="control-item">
+          <span class="control-label">POWER</span>
+          <button class="rocker-switch" id="btn-power" aria-label="Main system power toggle">
+            <span class="rocker-handle"></span>
+          </button>
+        </div>
+
+        <!-- Status PWR light starts on -->
+        <div class="power-led-box">
+          <div class="led-light" id="power-led" role="presentation"></div>
+          <span class="control-label" style="font-size: 0.58rem; letter-spacing: 0.5px;">PWR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Handheld controller layout for mobile layout -->
+    <div class="handheld-controls" aria-label="Handheld controller overlay">
+      <div class="dpad" role="navigation" aria-label="Menu navigation D-pad">
+        <button class="dpad-btn up" aria-label="Navigate Up"></button>
+        <button class="dpad-btn down" aria-label="Navigate Down"></button>
+        <button class="dpad-btn left" aria-label="Navigate Left"></button>
+        <button class="dpad-btn right" aria-label="Navigate Right"></button>
+        <div class="dpad-center" role="presentation"></div>
+      </div>
+
+      <div class="speaker-grill" role="presentation">
+        <div class="slit"></div>
+        <div class="slit"></div>
+        <div class="slit"></div>
+        <div class="slit"></div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn btn-b" id="gamepad-b" aria-label="Action B: Toggle Scanlines">B</button>
+        <button class="action-btn btn-a" id="gamepad-a" aria-label="Action A: Select and launch focused node">A</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dynamic responsive scaling for the CRT monitor container to keep its aspect ratio and scale to fit any resolution larger screen
+      const retroComp = document.querySelector('.retro-computer');
+      const updateScale = () => {
+        if (window.innerWidth <= 768) {
+          retroComp.style.transform = '';
+          return;
+        }
+        const margin = 48; // 3rem total margin safety
+        const targetW = 900;
+        const targetH = 670;
+        const scaleW = (window.innerWidth - margin) / targetW;
+        const scaleH = (window.innerHeight - margin) / targetH;
+        const scale = Math.min(scaleW, scaleH);
+        retroComp.style.transform = `scale(${scale})`;
+      };
+      window.addEventListener('resize', updateScale);
+      updateScale();
+
+      document.addEventListener('touchstart', () => { }, { passive: true });
+
+      // Remap local addresses for services is now handled dynamically in renderNodes
+
+      // DOM Node references
+      const crtBtn = document.getElementById('btn-crt');
+      const cliBtn = document.getElementById('btn-cli');
+      const themeBtn = document.getElementById('btn-theme');
+      const resetBtn = document.getElementById('btn-reset');
+      const powerBtn = document.getElementById('btn-power');
+      const powerLed = document.getElementById('power-led');
+      const floppyLed = document.getElementById('floppy-led');
+      const screen = document.querySelector('.screen-container');
+      const monitorScreen = document.querySelector('.monitor-screen');
+      const guiContent = document.getElementById('gui-content');
+      const cliContainer = document.getElementById('cli-container');
+      const cliInput = document.getElementById('cli-input');
+      const cliOutput = document.getElementById('cli-output');
+      const matrixCanvas = document.getElementById('matrix-canvas');
+      const bootOverlay = document.getElementById('boot-overlay');
+      const bootStdout = document.getElementById('boot-stdout');
+      const startOverlay = document.getElementById('press-start-overlay');
+      const monitorDashboard = document.getElementById('monitor-dashboard');
+      const body = document.body;
+
+      // System state variables - starts POWERED ON
+      let systemPowered = true;
+      let systemBooted = false;
+      let activeTheme = 'green'; // green, amber, blue
+      let cliActive = false;
+      let monitorActive = false;
+      let monitorInterval = null;
+      let backgroundPollInterval = null;
+      let monitorHost = window.location.port === '3000' ? '' : `http://${window.location.hostname}:3000`;
+      let pingingInterval = null;
+      let latestCpuUsage = 0;
+      let latestConfig = null;
+      let latestStatsData = null;
+      let isInitialSetup = false;
+      let setupStep = 1;
+
+      // ----------------------------------------------------
+      // AUDIO SYSTEM (AudioContext Synthesizer soundscape)
+      // ----------------------------------------------------
+      let audioCtx = null;
+      const initAudio = () => {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch (e) { }
+      };
+
+      // Play rich dynamic sound effects on the fly
+      function playSound(type, data = {}) {
+        try {
+          initAudio();
+          if (!audioCtx || audioCtx.state !== 'running') return;
+          const now = audioCtx.currentTime;
+
+          const playTone = (oscType, freq, targetFreq, vol, dur, start = 0) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = oscType;
+            osc.frequency.setValueAtTime(freq, now + start);
+            if (targetFreq) osc.frequency.exponentialRampToValueAtTime(targetFreq, now + start + dur);
+            gain.gain.setValueAtTime(vol, now + start);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start(now + start);
+            osc.stop(now + start + dur + 0.01);
+          };
+
+          if (type === 'click') {
+            playTone('sine', 600, 150, 0.15, 0.05);
+          } else if (type === 'beep') {
+            playTone('triangle', data.freq || 800, 0, 0.2, (data.dur || 100) / 1000);
+          } else if (type === 'clunk') {
+            playTone('sine', 95, 20, 0.5, 0.09);
+            playTone('triangle', 1400, 500, 0.2, 0.02);
+          } else if (type === 'degauss') {
+            playTone('sine', 130, 40, 0.7, 0.72);
+
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.45, audioCtx.sampleRate);
+            const channel = buf.getChannelData(0);
+            for (let i = 0; i < channel.length; i++) channel[i] = Math.random() * 2 - 1;
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buf;
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 750;
+            filter.Q.value = 0.6;
+            const noiseGain = audioCtx.createGain();
+            noise.connect(filter).connect(noiseGain).connect(audioCtx.destination);
+            noiseGain.gain.setValueAtTime(0.1, now);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+            noise.start(now);
+            noise.stop(now + 0.45);
+          } else if (type === 'seek') {
+            const dur = data.dur || 300, steps = data.steps || 10, interval = dur / steps;
+            floppyLed.classList.add('reading');
+            for (let s = 0; s < steps; s++) {
+              const startOffset = (s * interval) / 1000;
+              const f = 130 + Math.random() * 90 + (s % 4) * 35;
+              playTone('square', f, 0, 0.06, 0.01, startOffset);
+            }
+            setTimeout(() => floppyLed.classList.remove('reading'), dur + 40);
+          } else if (type === 'alarm') {
+            for (let i = 0; i < 3; i++) {
+              playTone('triangle', 950, 0, 0.18, 0.07, i * 0.12);
+            }
+          }
+        } catch (e) { }
+      }
+
+      // Initialize AudioContext triggering mechanisms
+      ['click', 'keydown', 'touchend'].forEach(e => document.addEventListener(e, initAudio, { passive: true }));
+
+      // ----------------------------------------------------
+      // LIVE CANVAS SPARKLINE GRAPH (CPU system load)
+      // ----------------------------------------------------
+      const chartCanvas = document.getElementById('system-chart-canvas');
+      const chartCtx = chartCanvas.getContext('2d');
+      const historyPoints = 28;
+      const metricsHistory = Array(historyPoints).fill(12);
+
+      // Resizes canvas grid
+      const initChart = () => {
+        const dpr = window.devicePixelRatio || 1;
+        const w = chartCanvas.clientWidth;
+        const h = chartCanvas.clientHeight;
+        if (w === 0 || h === 0) return;
+        chartCanvas.width = w * dpr;
+        chartCanvas.height = h * dpr;
+        chartCtx.scale(dpr, dpr);
+      };
+
+      initChart();
+      window.addEventListener('resize', initChart);
+
+      // System tick for graph updates
+      const drawChartTick = () => {
+        if (!systemPowered) return;
+        // Add a slight micro-jitter (e.g. ±0.4%) to show active heartbeat
+        const jitter = (Math.random() - 0.5) * 0.8;
+        const nextVal = Math.max(0, Math.min(100, latestCpuUsage + jitter));
+        metricsHistory.shift();
+        metricsHistory.push(nextVal);
+
+        const w = chartCanvas.clientWidth, h = chartCanvas.clientHeight;
+        chartCtx.clearRect(0, 0, w, h);
+
+        chartCtx.strokeStyle = getComputedStyle(body).getPropertyValue('--sys-border-dim').trim();
+        chartCtx.lineWidth = 0.5;
+        chartCtx.beginPath();
+        chartCtx.moveTo(0, h / 2);
+        chartCtx.lineTo(w, h / 2);
+        chartCtx.stroke();
+
+        const activeColor = getComputedStyle(body).getPropertyValue('--sys-text').trim();
+        chartCtx.strokeStyle = activeColor;
+        chartCtx.lineWidth = 1.6;
+        chartCtx.beginPath();
+
+        const stepX = w / (historyPoints - 1);
+        metricsHistory.forEach((pt, i) => {
+          const y = h - (pt / 100) * (h - 6) - 3;
+          if (i === 0) chartCtx.moveTo(0, y);
+          else chartCtx.lineTo(i * stepX, y);
+        });
+        chartCtx.stroke();
+
+        const activeGlow = getComputedStyle(body).getPropertyValue('--sys-glow').trim();
+        let fillGlow = 'rgba(57, 255, 20, 0.06)';
+        if (activeGlow.startsWith('rgba')) {
+          fillGlow = activeGlow.replace(/[\d\.]+\s*\)$/, '0.06)');
+        } else if (activeGlow.startsWith('rgb')) {
+          fillGlow = activeGlow.replace('rgb', 'rgba').replace(/\)$/, ', 0.06)');
+        }
+        chartCtx.fillStyle = fillGlow;
+        chartCtx.lineTo(w, h);
+        chartCtx.lineTo(0, h);
+        chartCtx.closePath();
+        chartCtx.fill();
+      };
+
+      setInterval(drawChartTick, 450);
+
+      // ----------------------------------------------------
+      // SYSTEM CONTROL INTERACTIVE METHODS (Power, Reset, CRT)
+      // ----------------------------------------------------
+      const toggleCrt = (active) => {
+        screen.classList.toggle('crt-effect', active);
+        screen.classList.toggle('crt-off', !active);
+        localStorage.setItem('crt-off', !active);
+      };
+      if (localStorage.getItem('crt-off') === 'true') toggleCrt(false);
+
+      const updateThemeLeds = () => {
+        const greenLed = document.getElementById('led-theme-green');
+        const amberLed = document.getElementById('led-theme-amber');
+        const blueLed = document.getElementById('led-theme-blue');
+        if (!greenLed || !amberLed || !blueLed) return;
+
+        greenLed.classList.remove('active');
+        amberLed.classList.remove('active');
+        blueLed.classList.remove('active');
+
+        if (systemPowered) {
+          if (activeTheme === 'green') greenLed.classList.add('active');
+          else if (activeTheme === 'amber') amberLed.classList.add('active');
+          else if (activeTheme === 'blue') blueLed.classList.add('active');
+        }
+      };
+
+      // Switch monitors green, amber, blue
+      const applyTheme = (name) => {
+        body.classList.remove('theme-amber', 'theme-blue');
+        if (name !== 'green') body.classList.add(`theme-${name}`);
+        localStorage.setItem('sys-theme', name);
+        activeTheme = name;
+        updateThemeLeds();
+      };
+
+      const storedTheme = localStorage.getItem('sys-theme') || 'green';
+      applyTheme(storedTheme);
+
+      // ----------------------------------------------------
+      // BIOS MECHANICAL BOOT ENGINE
+      // ----------------------------------------------------
+
+      const runBootSequence = () => {
+        systemBooted = false;
+        if (monitorScreen) monitorScreen.classList.remove('allow-scroll');
+        bootOverlay.classList.remove('hidden');
+        bootStdout.innerHTML = "";
+        guiContent.classList.add('hidden');
+        cliContainer.classList.add('hidden');
+        monitorDashboard.classList.add('hidden');
+        if (monitorInterval) {
+          clearInterval(monitorInterval);
+          monitorInterval = null;
+        }
+        monitorActive = false;
+        playSound('degauss');
+        let lineIdx = 0;
+
+        let cpuLine = "CPU: System Processor @ 1.60GHz (Nominal)";
+        let speedLine = "SPEED: 1600MHz";
+        let ramLine = "Checking RAM... 2048MB OK";
+        if (latestStatsData) {
+          const cores = latestStatsData.cpu.cores;
+          const threads = latestStatsData.cpu.threads || cores;
+          const freq = latestStatsData.cpu.frequency_mhz;
+          const totalRam = latestStatsData.ram.total_mb;
+          const arch = latestStatsData.cpu.architecture || "ARM64";
+          cpuLine = `CPU: ${arch} ${cores}C/${threads}T @ ${(freq / 1000).toFixed(2)}GHz`;
+          speedLine = `SPEED: ${freq}MHz`;
+          ramLine = `Checking RAM... ${totalRam}MB OK`;
+        }
+
+        let nodePingLines = [];
+        if (latestConfig && latestConfig.nodes) {
+          latestConfig.nodes.forEach(node => {
+            const domain = node.url.replace(/^https?:\/\//, '').split('/')[0];
+            const ms = (Math.random() * 1.5 + 0.5).toFixed(1);
+            nodePingLines.push(`  [OK] ${node.name.toUpperCase()}: ${domain} (ping ${ms}ms)`);
+          });
+        } else {
+          nodePingLines = [
+            "  [OK] STORAGE: files.example.com (ping 1.2ms)",
+            "  [OK] AUDIO: audio.example.com (ping 2.1ms)",
+            "  [OK] DIAGNOSTIC: status.example.com (ping 0.9ms)",
+            `  [OK] MONITOR: ${monitorHost.replace(/^https?:\/\//, '') || 'localhost:3000'} (ping 0.5ms)`
+          ];
+        }
+
+        const activeBootLines = [
+          "AMIBIOS (C) 2026 RETRO SYSTEMS INC.",
+          "BIOS DATE: 06/28/26 ver 08.12.01",
+          cpuLine,
+          speedLine,
+          "",
+          ramLine,
+          "Detecting Harddisk Storage Devices...",
+          "  [OK] SATA 0: Storage (128GB)",
+          "  [OK] SATA 1: Backup (256GB)",
+          "  [OK] SATA 2: Media (64GB)",
+          "  [OK] SATA 3: System (16GB)",
+          "",
+          "Initializing Ethernet Connection Daemon...",
+          "  IP: 192.168.1.105 // NET: 255.255.255.0 // GW: 192.168.1.1",
+          "  DNS: 1.1.1.1, 8.8.8.8",
+          "",
+          "Verifying Local Channels Status:",
+          "BAR_PROGRESS_PLACEHOLDER",
+          ...nodePingLines,
+          "",
+          "Loading GUI shell daemon... OK",
+          "Starting Command Prompt Shell... OK",
+          "Accessing system console channels...",
+          "SYSTEM_BOOT_NOMINAL"
+        ];
+
+        const writeLine = () => {
+          if (!systemPowered) return;
+          if (lineIdx >= activeBootLines.length) {
+            setTimeout(() => {
+              if (!systemPowered) return;
+              bootOverlay.classList.add('hidden');
+              systemBooted = true;
+              if (monitorScreen) monitorScreen.classList.add('allow-scroll');
+              if (!latestConfig) {
+                openSetup();
+              } else if (cliActive) {
+                cliContainer.classList.remove('hidden');
+                cliInput.focus();
+              } else {
+                guiContent.classList.remove('hidden');
+                initChart();
+                highlightNode(0);
+              }
+              playSound('beep', { freq: 750, dur: 120 });
+            }, 500);
+            return;
+          }
+
+          const text = activeBootLines[lineIdx];
+          if (text.startsWith("Detecting") || text.startsWith("  [OK] SATA")) playSound('seek', { steps: 6, dur: 120 });
+          else if (text.startsWith("Verifying")) playSound('seek', { steps: 12, dur: 250 });
+          else if (text.trim() && !text.includes("PLACEHOLDER")) playSound('click');
+
+          if (text === "BAR_PROGRESS_PLACEHOLDER") {
+            let pct = 0;
+            const container = document.createElement('div');
+            bootStdout.appendChild(container);
+            const drawProgress = () => {
+              if (!systemPowered) return;
+              if (pct > 100) {
+                lineIdx++;
+                setTimeout(writeLine, 150);
+              } else {
+                container.textContent = `  [${"█".repeat(pct / 5)}${"░".repeat(20 - pct / 5)}] ${pct}%`;
+                playSound('click');
+                pct += 10;
+                setTimeout(drawProgress, 60);
+              }
+            };
+            drawProgress();
+            return;
+          }
+
+          const div = document.createElement('div');
+          if (text === "SYSTEM_BOOT_NOMINAL") {
+            div.textContent = ">> ALL SYSTEMS NOMINAL.";
+            div.style.cssText = "color: var(--sys-text); font-weight: bold;";
+          } else {
+            div.textContent = text;
+          }
+          bootStdout.appendChild(div);
+          bootOverlay.scrollTop = bootOverlay.scrollHeight;
+          lineIdx++;
+          setTimeout(writeLine, text.trim() ? 70 : 100);
+        };
+        setTimeout(writeLine, 400);
+      };
+
+      // Hardware Reset button click handler
+      resetBtn.addEventListener('click', () => {
+        if (!systemPowered) return;
+        playSound('clunk');
+        stopMatrixRain(matrixCanvas);
+        runBootSequence();
+      });
+
+      // Rocker Power Switch toggler
+      powerBtn.addEventListener('click', () => {
+        systemPowered = !systemPowered;
+        playSound('clunk');
+
+        if (systemPowered) {
+          powerBtn.classList.remove('off');
+          powerLed.classList.remove('off');
+          screen.classList.remove('power-off');
+          screen.classList.add('screen-booting');
+          updateThemeLeds();
+          runBootSequence();
+          // Start background polling
+          fetchSystemMetrics();
+          startBackgroundPolling();
+        } else {
+          powerBtn.classList.add('off');
+          powerLed.classList.add('off');
+          screen.classList.add('power-off');
+          screen.classList.remove('screen-booting');
+          stopMatrixRain(matrixCanvas);
+          if (typeof closeMonitor === 'function') closeMonitor();
+          // Clear background poll interval when powered off
+          if (backgroundPollInterval) {
+            clearInterval(backgroundPollInterval);
+            backgroundPollInterval = null;
+          }
+          updateThemeLeds();
+          systemBooted = false;
+          if (monitorScreen) monitorScreen.classList.remove('allow-scroll');
+        }
+      });
+
+      // Theme button click handler
+      themeBtn.addEventListener('click', () => {
+        if (!systemPowered) return;
+        playSound('clunk');
+        let nextTheme = 'green';
+        if (activeTheme === 'green') nextTheme = 'amber';
+        else if (activeTheme === 'amber') nextTheme = 'blue';
+        applyTheme(nextTheme);
+      });
+
+      // Scanline button click handler (now toggles settings panel overlay)
+      crtBtn.addEventListener('click', () => {
+        if (!systemPowered) return;
+        const setupOverlay = document.getElementById('setup-overlay');
+        if (setupOverlay.classList.contains('hidden')) {
+          openSetup();
+        } else {
+          if (latestConfig && !isInitialSetup) {
+            closeSetup();
+          } else {
+            playSound('alarm');
+          }
+        }
+      });
+
+      // Clock logic
+      const timeEl = document.getElementById('system-time');
+      const updateClock = () => timeEl.textContent = new Date().toTimeString().split(' ')[0];
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // Card navigation setup
+      let nodes = [];
+      let currentFocusIndex = 0;
+
+      const highlightNode = (index) => {
+        if (!systemPowered || !systemBooted || cliActive) return;
+        currentFocusIndex = index;
+        nodes.forEach((node, idx) => {
+          if (node.classList.toggle('focus-node', idx === index)) {
+            node.focus({ preventScroll: true });
+            node.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      };
+      highlightNode(0);
+
+      document.addEventListener('keydown', (e) => {
+        if (!systemPowered || !systemBooted) return;
+
+        // Backtick key toggles the console terminal directly
+        if (e.key === '`') {
+          e.preventDefault();
+          cliBtn.click();
+          return;
+        }
+
+        if (e.key === 'Escape' && monitorActive) {
+          e.preventDefault();
+          if (typeof closeMonitor === 'function') closeMonitor();
+          return;
+        }
+
+        if (cliActive || monitorActive) return; // Skip keys when CLI or Monitor takes priority
+
+        const isNext = e.key === 'ArrowDown' || e.key === 'ArrowRight';
+        const isPrev = e.key === 'ArrowUp' || e.key === 'ArrowLeft';
+        if (isNext || isPrev) {
+          e.preventDefault();
+          highlightNode((currentFocusIndex + (isNext ? 1 : -1) + nodes.length) % nodes.length);
+          playSound('beep', { freq: 280, dur: 40 });
+        }
+      });
+
+      // ----------------------------------------------------
+      // INTERACTIVE CLI COMMAND LOGIC
+      // ----------------------------------------------------
+      const printLine = (text, type = 'normal') => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        if (type === 'error') div.classList.add('cli-error');
+        if (type === 'info') div.classList.add('cli-info');
+        if (type === 'success') div.classList.add('cli-success');
+        cliOutput.appendChild(div);
+        cliOutput.scrollTop = cliOutput.scrollHeight;
+      };
+
+      const handleCommand = (cmdText) => {
+        const cleanCmd = cmdText.trim().toLowerCase();
+        const parts = cleanCmd.split(' ');
+        const mainCmd = parts[0];
+        const arg = parts.slice(1).join(' ');
+
+        if (pingingInterval) {
+          clearInterval(pingingInterval);
+          pingingInterval = null;
+        }
+
+        if (!mainCmd) return;
+
+        const hostSlug = latestConfig ? latestConfig.server_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'home-srv';
+        printLine(`root@${hostSlug}:~# ${cmdText}`);
+        playSound('seek', { steps: 3, dur: 80 });
+
+        switch (mainCmd) {
+          case 'help':
+            printLine("Available commands:", "info");
+            [
+              "help             - Show this help list",
+              "neofetch/sysinfo - Display hardware specs & logo",
+              "nodes            - List local server node channels",
+              "ping <node>      - Ping a node (files, quran, status, monitor)",
+              "monitor          - Launch live system monitor dashboard",
+              "theme <color>    - Change display theme (green, amber, blue)",
+              "beep <freq> <ms> - Play retro sound frequency",
+              "matrix           - Run falling binary screensaver",
+              "clear            - Clear screen terminal logs",
+              "reboot           - Trigger mechanical system reboot",
+              "exit             - Exit terminal console back to GUI"
+            ].forEach(cmd => printLine(`  ${cmd}`));
+            break;
+
+          case 'clear':
+            cliOutput.innerHTML = "";
+            break;
+
+          case 'exit':
+            cliBtn.click();
+            break;
+
+          case 'reboot':
+            runBootSequence();
+            break;
+
+          case 'theme':
+            if (arg === 'green' || arg === 'amber' || arg === 'blue') {
+              applyTheme(arg);
+              printLine(`Theme updated to ${arg}.`, "success");
+            } else {
+              printLine("Usage: theme [green|amber|blue]", "error");
+            }
+            break;
+
+          case 'beep':
+            playSound('beep', { freq: parseInt(parts[1]) || 800, dur: parseInt(parts[2]) || 150 });
+            printLine(`Beeped ${parseInt(parts[1]) || 800}Hz for ${parseInt(parts[2]) || 150}ms.`);
+            break;
+
+          case 'nodes':
+            printLine("Node Configuration channels:", "info");
+            if (latestConfig && latestConfig.nodes) {
+              latestConfig.nodes.forEach((n, i) => {
+                const idStr = String(i + 1).padStart(2, '0');
+                const domain = n.url.replace(/^https?:\/\//, '').split('/')[0];
+                printLine(`  [NODE_${idStr}: ${n.name.toUpperCase()}]    ${n.name} -> ${domain}`);
+              });
+            } else {
+              [
+                "[NODE_01: STORAGE]    FileBrowser -> files.example.com",
+                "[NODE_02: AUDIO]      Navidrome   -> audio.example.com",
+                "[NODE_03: DIAGNOSTIC] Status      -> status.example.com",
+                "[NODE_04: MONITOR]    SysMonitor  -> Port 3000"
+              ].forEach(n => printLine(`  ${n}`));
+            }
+            break;
+
+          case 'ping':
+            if (!parts[1]) {
+              const pingUsage = latestConfig && latestConfig.nodes
+                ? latestConfig.nodes.map(n => n.name.toLowerCase()).join('|')
+                : 'files|quran|status|monitor';
+              printLine(`Usage: ping [${pingUsage}]`, "error");
+              break;
+            }
+            const target = parts[1].toLowerCase();
+            let pingHost = null;
+            if (latestConfig && latestConfig.nodes) {
+              const matchedNode = latestConfig.nodes.find(n => n.name.toLowerCase() === target);
+              if (matchedNode) {
+                pingHost = matchedNode.url.replace(/^https?:\/\//, '').split('/')[0];
+              }
+            }
+            if (!pingHost) {
+              if (target === 'monitor' || target === 'sysmonitor') {
+                pingHost = monitorHost
+                  ? monitorHost.replace(/^https?:\/\//, '')
+                  : `${window.location.hostname || 'localhost'}:3000`;
+              } else {
+                pingHost = `${target}.example.com`;
+              }
+            }
+            printLine(`PING ${pingHost}: 56 data bytes`, "info");
+
+            let seq = 1;
+            pingingInterval = setInterval(() => {
+              if (seq > 4) {
+                clearInterval(pingingInterval);
+                pingingInterval = null;
+                printLine(`\n--- ${target} ping statistics ---`, "info");
+                printLine("4 packets transmitted, 4 received, 0% packet loss", "info");
+                printLine("rtt min/avg/max = 0.72/1.02/1.34 ms", "info");
+                return;
+              }
+              const ms = (Math.random() * 0.5 + 0.6).toFixed(2);
+              printLine(`64 bytes from ${pingHost}: icmp_seq=${seq} ttl=64 time=${ms} ms`);
+              playSound('beep', { freq: 950, dur: 12 });
+              seq++;
+            }, 600);
+            break;
+
+          case 'neofetch':
+          case 'sysinfo':
+            let sysinfoLines = [
+              "   /\\       root@home-srv",
+              "  /  \\      --------------",
+              " /    \\     OS: RetroOS v4.8.2",
+              "[======]    Host: retro-server",
+              "|  []  |    Uptime: 243 days, 18 hours, 4 mins",
+              "|  []  |    CPU: Generic Linux CPU",
+              "|  []  |    RAM: 1284MB / 2048MB",
+              "\\______/    Temp: 35.8°C",
+              "            Nodes: 4 Active, 0 Offline"
+            ];
+            if (latestStatsData) {
+              const seconds = latestStatsData.uptime_seconds;
+              const days = Math.floor(seconds / 86400);
+              const hours = Math.floor((seconds % 86400) / 3600);
+              const minutes = Math.floor((seconds % 3600) / 60);
+
+              const cores = latestStatsData.cpu.cores;
+              const freq = latestStatsData.cpu.frequency_mhz;
+              const totalRam = latestStatsData.ram.total_mb;
+              const usedRam = latestStatsData.ram.used_mb;
+              const temp = latestStatsData.battery.temperature.toFixed(1);
+
+              const arch = latestStatsData.cpu.architecture || "ARM64";
+              const threads = latestStatsData.cpu.threads || cores;
+              sysinfoLines = [
+                "   /\\       root@home-srv",
+                "  /  \\      --------------",
+                " /    \\     OS: Linux",
+                `[======]    Host: ${window.location.hostname || 'localhost'}`,
+                `|  []  |    Uptime: ${days} days, ${hours} hours, ${minutes} mins`,
+                `|  []  |    CPU: ${arch} ${cores}C/${threads}T @ ${(freq / 1000).toFixed(2)}GHz`,
+                `|  []  |    RAM: ${usedRam}MB / ${totalRam}MB`,
+                `\\______/    Temp: ${temp}°C`,
+                "            Nodes: 4 Active, 0 Offline"
+              ];
+            }
+            sysinfoLines.forEach(l => printLine(l, "success"));
+            break;
+
+          case 'monitor':
+            printLine("Launching System Monitor Live Telemetry Overlay...");
+            playSound('clunk');
+            setTimeout(() => {
+              cliBtn.click(); // Close CLI
+              openMonitor();
+            }, 600);
+            break;
+
+          case 'matrix':
+            printLine("Starting Screensaver... Click screen or press any key to stop.");
+            playSound('degauss');
+            setTimeout(() => runMatrixRain(matrixCanvas, cliContainer), 300);
+            break;
+
+          default:
+            printLine(`Unknown system command: '${mainCmd}'. Type 'help' for help.`, "error");
+            playSound('alarm');
+            break;
+        }
+      };
+
+      // Input field key listener
+      cliInput.addEventListener('keydown', (e) => {
+        if (!systemPowered) return;
+
+        // Typing sounds
+        if (e.key.length === 1) {
+          playSound('click');
+        }
+
+        if (e.key === 'Enter') {
+          const val = cliInput.value;
+          cliInput.value = "";
+          handleCommand(val);
+        }
+      });
+
+      // Redirect mouse focus back to input
+      cliContainer.addEventListener('click', () => {
+        if (!matrixCanvas.classList.contains('hidden')) {
+          stopMatrixRain(matrixCanvas);
+          playSound('click');
+        } else {
+          cliInput.focus();
+        }
+      });
+
+      // Prevent key down from exiting screensaver
+      document.addEventListener('keydown', (e) => {
+        if (!matrixCanvas.classList.contains('hidden')) {
+          e.preventDefault();
+          stopMatrixRain(matrixCanvas);
+          playSound('click');
+        }
+      });
+
+      // ----------------------------------------------------
+      // CONSOLE DRAWER SWAPPING SWITCH
+      // ----------------------------------------------------
+      cliBtn.addEventListener('click', () => {
+        if (!systemPowered) return;
+        cliActive = !cliActive;
+        playSound('clunk');
+
+        cliBtn.classList.toggle('active', cliActive);
+
+        if (cliActive) {
+          guiContent.classList.add('hidden');
+          cliContainer.classList.remove('hidden');
+          cliInput.focus();
+          printLine("Retro Homepage console interface initialized.", "info");
+          printLine("Type 'help' to review shell command directives.", "info");
+          printLine("");
+        } else {
+          cliContainer.classList.add('hidden');
+          guiContent.classList.remove('hidden');
+          initChart();
+          stopMatrixRain(matrixCanvas);
+        }
+      });
+
+      // ----------------------------------------------------
+      // MATRIX CODES RUNNER
+      // ----------------------------------------------------
+      let matrixInterval = null;
+      const runMatrixRain = (canvas, container) => {
+        canvas.classList.remove('hidden');
+        const w = canvas.width = container.clientWidth, h = canvas.height = container.clientHeight;
+        const ctx = canvas.getContext('2d'), fontSize = 11;
+        const columns = w / fontSize, drops = Array.from({ length: columns }, () => Math.random() * -80);
+
+        const draw = () => {
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = getComputedStyle(body).getPropertyValue('--sys-text').trim() || ('#' + '00ff66');
+          ctx.font = `${fontSize}px monospace`;
+
+          drops.forEach((y, i) => {
+            const char = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿ"[Math.floor(Math.random() * 62)];
+            ctx.fillText(char, i * fontSize, y * fontSize);
+            if (y * fontSize > h && Math.random() > 0.975) drops[i] = 0;
+            else drops[i]++;
+          });
+        };
+        if (matrixInterval) clearInterval(matrixInterval);
+        matrixInterval = setInterval(draw, 33);
+      };
+
+      const stopMatrixRain = (canvas) => {
+        if (matrixInterval) {
+          clearInterval(matrixInterval);
+          matrixInterval = null;
+        }
+        canvas.classList.add('hidden');
+      };
+
+      // ----------------------------------------------------
+      // MOBILE COMPATIBILITY BUTTON HANDLERS
+      // ----------------------------------------------------
+      const bindNav = (btn, action) => {
+        if (!btn) return;
+        let touched = false;
+        btn.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          touched = true;
+          action();
+          setTimeout(() => touched = false, 200);
+        }, { passive: false });
+        btn.addEventListener('click', () => { if (!touched) action(); });
+      };
+
+      // ----------------------------------------------------
+      // SYSTEM MONITOR DASHBOARD CONTROLLER
+      // ----------------------------------------------------
+      function openMonitor() {
+        if (!systemPowered || !systemBooted) return;
+        monitorActive = true;
+        guiContent.classList.add('hidden');
+        monitorDashboard.classList.remove('hidden');
+        playSound('clunk');
+
+        // Clear background interval
+        if (backgroundPollInterval) {
+          clearInterval(backgroundPollInterval);
+          backgroundPollInterval = null;
+        }
+
+        // Initial fetch
+        fetchSystemMetrics();
+
+        // Refresh every 1s
+        if (monitorInterval) clearInterval(monitorInterval);
+        monitorInterval = setInterval(fetchSystemMetrics, 1000);
+      }
+
+      function closeMonitor() {
+        monitorActive = false;
+        if (monitorInterval) {
+          clearInterval(monitorInterval);
+          monitorInterval = null;
+        }
+        monitorDashboard.classList.add('hidden');
+        guiContent.classList.remove('hidden');
+        playSound('clunk');
+        initChart();
+        highlightNode(currentFocusIndex);
+
+        // Restart background polling if system is still powered
+        if (systemPowered) {
+          startBackgroundPolling();
+        }
+      }
+
+      // Keep reference global for power off/on logic
+      window.closeMonitor = closeMonitor;
+      window.openMonitor = openMonitor;
+
+
+
+      // ----------------------------------------------------
+      // DYNAMIC HOMEPAGE CONFIGURATION & SETUP WIZARD
+      // ----------------------------------------------------
+      function fetchConfig() {
+        return fetch(`${monitorHost}/api/config`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.configured) {
+              latestConfig = data.config;
+              renderNodes(latestConfig);
+              const serverName = latestConfig.server_name || "RETRO HOMEPAGE";
+              document.querySelector('h1').textContent = serverName.toUpperCase();
+              document.title = serverName;
+            } else {
+              latestConfig = null;
+            }
+          })
+          .catch(err => {
+            console.error("Failed to fetch configuration", err);
+          });
+      }
+
+      function renderNodes(config) {
+        const grid = document.getElementById('board-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        const isLocal = window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1' ||
+          window.location.hostname.startsWith('192.168.') ||
+          window.location.hostname.endsWith('.local');
+
+        // Filter out any monitor / sysmonitor nodes from config to prevent duplicates
+        const customNodes = (config.nodes || []).filter(node =>
+          node.icon_type !== 'monitor' &&
+          node.name.toLowerCase() !== 'sysmonitor'
+        );
+
+        let activeIndex = 0;
+        customNodes.forEach((node, i) => {
+          const idStr = String(activeIndex + 1).padStart(2, '0');
+          activeIndex++;
+          const href = (isLocal && node.local_url) ? node.local_url : node.url;
+
+          let svgHtml = '';
+          if (node.icon_type === 'custom') {
+            svgHtml = node.custom_svg;
+          } else {
+            const svgIcons = {
+              storage: `<svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7L11.8845 4.76892C11.5634 4.1268 11.4029 3.80573 11.1634 3.57116C10.9516 3.36373 10.6963 3.20597 10.4161 3.10931C10.0992 3 9.74021 3 9.02229 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V7M2 7H17.2C18.8802 7 19.7202 7 20.362 7.32698C20.9265 7.6146 21.3854 8.07354 21.673 8.63803C22 9.27976 22 10.1198 22 11.8V16.2C22 17.8802 22 18.7202 21.673 19.362C21.3854 19.9265 20.9265 20.3854 20.362 20.673C19.7202 21 18.8802 21 17.2 21H6.8C5.11984 21 4.27976 21 3.63803 20.673C3.07354 20.3854 2.6146 19.9265 2.32698 19.362C2 18.7202 2 17.8802 2 16.2V7ZM9 14L11 16L15.5 11.5" /></svg>`,
+              audio: `<svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+              diagnostic: `<svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="7" x2="6.01" y2="7"></line><line x1="10" y1="7" x2="14" y2="7"></line><rect x="2" y="13" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="17" x2="6.01" y2="17"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>`,
+              globe: `<svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+              terminal: `<svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`
+            };
+            svgHtml = svgIcons[node.icon_type] || svgIcons.globe;
+          }
+
+          const cardHtml = `
+            <a class="service-node" href="${href}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="${node.name} — ${node.description}">
+              <div class="node-header">
+                <span class="node-id">NODE_${idStr}: ${node.name.toUpperCase()}</span>
+                <span class="node-status"><span class="status-led"></span> ACTIVE</span>
+              </div>
+              <div class="node-body">
+                <div class="icon-box">
+                  ${svgHtml}
+                </div>
+                <div class="node-details">
+                  <h2 class="node-title">${node.name}</h2>
+                  <p class="node-description">${node.description}</p>
+                </div>
+              </div>
+              <div class="node-footer">
+                <span class="node-btn">[ CONNECT ]</span>
+              </div>
+            </a>
+          `;
+          grid.insertAdjacentHTML('beforeend', cardHtml);
+        });
+
+        // ALWAYS append the permanent SysMonitor node card at the end
+        const monitorIdStr = String(activeIndex + 1).padStart(2, '0');
+        const monitorCardHtml = `
+          <a class="service-node" href="#" onclick="event.preventDefault(); openMonitor();" role="listitem" aria-label="SysMonitor — Live system metrics from host server. Vitals, memory, and storage details.">
+            <div class="node-header">
+              <span class="node-id">NODE_${monitorIdStr}: SYSMONITOR</span>
+              <span class="node-status"><span class="status-led"></span> ACTIVE</span>
+            </div>
+            <div class="node-body">
+              <div class="icon-box">
+                <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+              </div>
+              <div class="node-details">
+                <h2 class="node-title">SysMonitor</h2>
+                <p class="node-description">Live system metrics from host server. Vitals, memory, and storage details.</p>
+              </div>
+            </div>
+            <div class="node-footer">
+              <span class="node-btn">[ INSPECT ]</span>
+            </div>
+          </a>
+        `;
+        grid.insertAdjacentHTML('beforeend', monitorCardHtml);
+
+        // Re-query and re-bind nodes list for navigation
+        nodes = document.querySelectorAll('.service-node');
+        nodes.forEach((node, idx) => {
+          node.addEventListener('mouseenter', () => {
+            if (!systemPowered) return;
+            highlightNode(idx);
+          });
+        });
+        highlightNode(0);
+      }
+
+      function openSetup() {
+        const setupOverlay = document.getElementById('setup-overlay');
+        setupOverlay.classList.remove('hidden');
+        guiContent.classList.add('hidden');
+        cliContainer.classList.add('hidden');
+        monitorDashboard.classList.add('hidden');
+        playSound('clunk');
+
+        if (latestConfig) {
+          isInitialSetup = false;
+          crtBtn.classList.add('active');
+        } else {
+          isInitialSetup = true;
+          setupStep = 1;
+          crtBtn.classList.remove('active');
+        }
+
+        const serverNameInput = document.getElementById('settings-server-name');
+        if (latestConfig) {
+          serverNameInput.value = latestConfig.server_name || '';
+        } else {
+          serverNameInput.value = '';
+        }
+
+        const active = screen.classList.contains('crt-effect');
+        const crtBtnSetting = document.getElementById('settings-crt-toggle');
+        if (crtBtnSetting) {
+          crtBtnSetting.textContent = active ? '[ ON ]' : '[ OFF ]';
+        }
+
+        renderSettingsNodes();
+        renderSetupWizard();
+
+        // Reset subviews
+        document.getElementById('settings-node-editor-view').classList.add('hidden');
+        document.getElementById('settings-list-view').classList.remove('hidden');
+      }
+
+      function closeSetup() {
+        if (!latestConfig) {
+          playSound('alarm');
+          return;
+        }
+        const setupOverlay = document.getElementById('setup-overlay');
+        setupOverlay.classList.add('hidden');
+        playSound('clunk');
+
+        crtBtn.classList.remove('active');
+
+        guiContent.classList.remove('hidden');
+        initChart();
+        highlightNode(0);
+      }
+
+      function renderSetupWizard() {
+        const serverNameRow = document.getElementById('setup-server-name-row');
+        const crtRow = document.getElementById('setup-crt-row');
+        const nodesSection = document.getElementById('setup-nodes-section');
+        const wizardBtns = document.getElementById('setup-wizard-btns');
+        const titleEl = document.getElementById('setup-view-title');
+        const btnSaveServerName = document.getElementById('btn-save-server-name');
+
+        if (!isInitialSetup) {
+          // Standard Settings Mode: show everything
+          titleEl.textContent = "┌── SYSTEM CONFIGURATION UTILITY ──┐";
+          if (serverNameRow) {
+            serverNameRow.style.display = '';
+            serverNameRow.style.gridColumn = '';
+          }
+          if (btnSaveServerName) btnSaveServerName.style.display = '';
+          if (crtRow) crtRow.style.display = '';
+          if (nodesSection) nodesSection.style.display = '';
+          if (wizardBtns) wizardBtns.innerHTML = '';
+          return;
+        }
+
+        // Initial Setup Mode (Wizard)
+        if (setupStep === 1) {
+          titleEl.textContent = "┌── INITIAL SYSTEM SETUP (1/2) ──┐";
+          if (serverNameRow) {
+            serverNameRow.style.display = '';
+            serverNameRow.style.gridColumn = 'span 2';
+          }
+          if (btnSaveServerName) btnSaveServerName.style.display = 'none';
+          if (crtRow) crtRow.style.display = 'none';
+          if (nodesSection) nodesSection.style.display = 'none';
+
+          if (wizardBtns) {
+            wizardBtns.innerHTML = `
+              <button type="button" class="setup-btn" onclick="wizardNextStep()">[ NEXT ]</button>
+            `;
+          }
+        } else if (setupStep === 2) {
+          titleEl.textContent = "┌── INITIAL SYSTEM SETUP (2/2) ──┐";
+          if (serverNameRow) {
+            serverNameRow.style.display = 'none';
+            serverNameRow.style.gridColumn = '';
+          }
+          if (crtRow) crtRow.style.display = 'none';
+          if (nodesSection) nodesSection.style.display = '';
+
+          if (wizardBtns) {
+            wizardBtns.innerHTML = `
+              <button type="button" class="setup-btn" onclick="wizardPrevStep()">[ BACK ]</button>
+              <button type="button" class="setup-btn setup-btn-save" onclick="wizardSave()">[ SAVE ]</button>
+            `;
+          }
+        }
+      }
+
+      window.wizardNextStep = function () {
+        const nameInput = document.getElementById('settings-server-name');
+        if (!nameInput) return;
+        const name = nameInput.value.trim();
+        if (!name) {
+          alert("Server name cannot be empty.");
+          playSound('alarm');
+          return;
+        }
+
+        if (!latestConfig) {
+          latestConfig = {
+            server_name: name,
+            nodes: []
+          };
+        } else {
+          latestConfig.server_name = name;
+        }
+
+        setupStep = 2;
+        renderSetupWizard();
+        renderSettingsNodes();
+        playSound('click');
+      };
+
+      window.wizardPrevStep = function () {
+        setupStep = 1;
+        renderSetupWizard();
+        playSound('click');
+      };
+
+      window.wizardSave = function () {
+        if (!latestConfig || !latestConfig.server_name) {
+          alert("Please complete the configuration first.");
+          playSound('alarm');
+          return;
+        }
+
+        saveSettingsConfigPayload().then(() => {
+          playSound('beep', { freq: 750, dur: 150 });
+          isInitialSetup = false;
+          closeSetup();
+        });
+      };
+
+      function renderSettingsNodes() {
+        const listContainer = document.getElementById('settings-nodes-list');
+        if (!listContainer) return;
+        listContainer.innerHTML = '';
+
+        // Filter out any monitor / sysmonitor nodes from in-memory config to prevent duplication
+        if (latestConfig && latestConfig.nodes) {
+          latestConfig.nodes = latestConfig.nodes.filter(node =>
+            node.icon_type !== 'monitor' &&
+            node.name.toLowerCase() !== 'sysmonitor'
+          );
+        }
+
+        if (!latestConfig || !latestConfig.nodes || latestConfig.nodes.length === 0) {
+          listContainer.innerHTML = '<div style="text-align: center; color: var(--sys-border-dim); padding: 15px;">No nodes configured. Click [ + ADD NODE ] to begin.</div>';
+          return;
+        }
+
+        latestConfig.nodes.forEach((node, idx) => {
+          const svgIcons = {
+            storage: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7L11.8845 4.76892C11.5634 4.1268 11.4029 3.80573 11.1634 3.57116C10.9516 3.36373 10.6963 3.20597 10.4161 3.10931C10.0992 3 9.74021 3 9.02229 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V7M2 7H17.2C18.8802 7 19.7202 7 20.362 7.32698C20.9265 7.6146 21.3854 8.07354 21.673 8.63803C22 9.27976 22 10.1198 22 11.8V16.2C22 17.8802 22 18.7202 21.673 19.362C21.3854 19.9265 20.9265 20.3854 20.362 20.673C19.7202 21 18.8802 21 17.2 21H6.8C5.11984 21 4.27976 21 3.63803 20.673C3.07354 20.3854 2.6146 19.9265 2.32698 19.362C2 18.7202 2 17.8802 2 16.2V7ZM9 14L11 16L15.5 11.5" /></svg>`,
+            audio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+            diagnostic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="7" x2="6.01" y2="7"></line><line x1="10" y1="7" x2="14" y2="7"></line><rect x="2" y="13" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="17" x2="6.01" y2="17"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>`,
+            globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+            terminal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`
+          };
+
+          let iconSvg = '';
+          if (node.icon_type === 'custom') {
+            iconSvg = node.custom_svg;
+          } else {
+            iconSvg = svgIcons[node.icon_type] || svgIcons.globe;
+          }
+
+          const rowHtml = `
+            <div class="settings-node-row">
+              <div class="settings-node-row-info">
+                ${iconSvg}
+                <span>NODE ${String(idx + 1).padStart(2, '0')}: ${node.name}</span>
+              </div>
+              <div class="settings-node-actions">
+                <button type="button" class="setup-btn btn-node-order" onclick="moveNodeSetting(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲</button>
+                <button type="button" class="setup-btn btn-node-order" onclick="moveNodeSetting(${idx}, 1)" ${idx === latestConfig.nodes.length - 1 ? 'disabled' : ''}>▼</button>
+                <button type="button" class="setup-btn btn-node-modify" onclick="editNodeSetting(${idx})">[ MODIFY ]</button>
+                <button type="button" class="setup-btn btn-node-delete" onclick="deleteNodeSetting(${idx})">[ DELETE ]</button>
+              </div>
+            </div>
+          `;
+          listContainer.insertAdjacentHTML('beforeend', rowHtml);
+        });
+      }
+
+      window.moveNodeSetting = function (idx, direction) {
+        if (!latestConfig || !latestConfig.nodes) return;
+        const targetIdx = idx + direction;
+        if (targetIdx < 0 || targetIdx >= latestConfig.nodes.length) return;
+
+        // Swap nodes
+        const temp = latestConfig.nodes[idx];
+        latestConfig.nodes[idx] = latestConfig.nodes[targetIdx];
+        latestConfig.nodes[targetIdx] = temp;
+
+        playSound('beep', { freq: 400, dur: 50 });
+
+        if (isInitialSetup) {
+          renderSettingsNodes();
+        } else {
+          saveSettingsConfigPayload().then(() => {
+            renderSettingsNodes();
+            renderNodes(latestConfig);
+          });
+        }
+      };
+
+      window.saveConfigName = function () {
+        const nameInput = document.getElementById('settings-server-name');
+        if (!nameInput) return;
+        const name = nameInput.value.trim();
+        if (!name) {
+          alert("Server name cannot be empty.");
+          return;
+        }
+
+        if (!latestConfig) {
+          latestConfig = {
+            server_name: name,
+            nodes: []
+          };
+        } else {
+          latestConfig.server_name = name;
+        }
+
+        saveSettingsConfigPayload().then(() => {
+          playSound('beep', { freq: 750, dur: 150 });
+        });
+      };
+
+      function saveSettingsConfigPayload() {
+        return fetch(`${monitorHost}/api/config`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(latestConfig)
+        })
+          .then(res => res.json())
+          .catch(err => {
+            console.error(err);
+            alert("Network error saving configuration");
+            throw err;
+          })
+          .then(data => {
+            if (data.success) return fetchConfig();
+            alert("Error saving settings: " + (data.error || "Unknown error"));
+            throw new Error(data.error);
+          });
+      }
+
+      window.deleteNodeSetting = function (idx) {
+        if (!latestConfig || !latestConfig.nodes) return;
+        const nodeName = latestConfig.nodes[idx].name;
+        if (confirm(`Are you sure you want to delete node "${nodeName}"?`)) {
+          latestConfig.nodes.splice(idx, 1);
+          if (isInitialSetup) {
+            renderSettingsNodes();
+            playSound('beep', { freq: 450, dur: 150 });
+          } else {
+            saveSettingsConfigPayload().then(() => {
+              renderSettingsNodes();
+              playSound('beep', { freq: 450, dur: 150 });
+            });
+          }
+        }
+      };
+
+      window.openNodeEditor = function (idx = -1) {
+        document.getElementById('settings-list-view').classList.add('hidden');
+        document.getElementById('settings-node-editor-view').classList.remove('hidden');
+        playSound('clunk');
+
+        const titleEl = document.getElementById('node-editor-title');
+        const indexInput = document.getElementById('edit-node-index');
+        const nameInput = document.getElementById('edit-node-name');
+        const descTextarea = document.getElementById('edit-node-desc');
+        const iconTypeInput = document.getElementById('edit-node-icon-type');
+        const customSvgTextarea = document.getElementById('edit-node-custom-svg');
+        const urlInput = document.getElementById('edit-node-url');
+        const localUrlInput = document.getElementById('edit-node-local-url');
+
+        indexInput.value = idx;
+
+        if (idx >= 0 && latestConfig && latestConfig.nodes[idx]) {
+          const node = latestConfig.nodes[idx];
+          titleEl.textContent = "┌── EDIT NODE ──┐";
+          nameInput.value = node.name || '';
+          descTextarea.value = node.description || '';
+          iconTypeInput.value = node.icon_type || 'globe';
+          customSvgTextarea.value = node.custom_svg || '';
+          urlInput.value = node.url || '';
+          localUrlInput.value = node.local_url || '';
+        } else {
+          titleEl.textContent = "┌── ADD NODE ──┐";
+          nameInput.value = '';
+          descTextarea.value = '';
+          iconTypeInput.value = 'globe';
+          customSvgTextarea.value = '';
+          urlInput.value = '';
+          localUrlInput.value = '';
+        }
+
+        updateCharCounter(descTextarea);
+
+        const activeIcon = iconTypeInput.value;
+        const selectors = document.querySelectorAll('#settings-node-editor-view .setup-icon-option');
+        selectors.forEach(opt => {
+          const isSelected = opt.getAttribute('data-icon') === activeIcon;
+          opt.classList.toggle('selected', isSelected);
+        });
+
+        const customRow = document.getElementById('edit-node-custom-svg-row');
+        if (activeIcon === 'custom') {
+          customRow.classList.remove('hidden');
+        } else {
+          customRow.classList.add('hidden');
+        }
+      };
+
+      window.closeNodeEditor = function () {
+        document.getElementById('settings-node-editor-view').classList.add('hidden');
+        document.getElementById('settings-list-view').classList.remove('hidden');
+        playSound('clunk');
+      };
+
+      window.selectEditorIcon = function (element) {
+        const parent = element.parentElement;
+        const hiddenInput = document.getElementById('edit-node-icon-type');
+
+        parent.querySelectorAll('.setup-icon-option').forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+
+        const selectedIcon = element.getAttribute('data-icon');
+        hiddenInput.value = selectedIcon;
+
+        const customSvgRow = document.getElementById('edit-node-custom-svg-row');
+        if (selectedIcon === 'custom') {
+          customSvgRow.classList.remove('hidden');
+        } else {
+          customSvgRow.classList.add('hidden');
+        }
+        playSound('click');
+      };
+
+      window.updateCharCounter = function (element) {
+        const remaining = 95 - element.value.length;
+        const counter = document.getElementById('edit-node-desc-counter');
+        if (counter) counter.textContent = `${remaining} chars remaining`;
+      };
+
+      window.saveNodeEditorItem = function () {
+        const index = parseInt(document.getElementById('edit-node-index').value);
+        const name = document.getElementById('edit-node-name').value.trim();
+        const description = document.getElementById('edit-node-desc').value.trim();
+        const icon_type = document.getElementById('edit-node-icon-type').value;
+        const custom_svg = document.getElementById('edit-node-custom-svg').value.trim();
+        const url = document.getElementById('edit-node-url').value.trim();
+        const local_url = document.getElementById('edit-node-local-url').value.trim();
+
+        if (!name || !description || !url) {
+          alert("Node name, description, and remote URL are required.");
+          return;
+        }
+
+        const nodeData = {
+          name,
+          description,
+          icon_type,
+          custom_svg,
+          url,
+          local_url
+        };
+
+        if (!latestConfig) {
+          latestConfig = {
+            server_name: "MY RETRO SERVER",
+            nodes: []
+          };
+        }
+
+        if (index >= 0) {
+          latestConfig.nodes[index] = nodeData;
+        } else {
+          latestConfig.nodes.push(nodeData);
+        }
+
+        if (isInitialSetup) {
+          closeNodeEditor();
+          renderSettingsNodes();
+          playSound('beep', { freq: 750, dur: 200 });
+        } else {
+          saveSettingsConfigPayload().then(() => {
+            closeNodeEditor();
+            renderSettingsNodes();
+            playSound('beep', { freq: 750, dur: 200 });
+          });
+        }
+      };
+
+      window.editNodeSetting = function (idx) {
+        openNodeEditor(idx);
+      };
+
+      window.toggleCrtLinesSetting = function () {
+        const active = !screen.classList.contains('crt-effect');
+        toggleCrt(active);
+        const btn = document.getElementById('settings-crt-toggle');
+        if (btn) {
+          btn.textContent = active ? '[ ON ]' : '[ OFF ]';
+        }
+        playSound('beep', { freq: 350, dur: 45 });
+      };
+
+
+
+      function startBackgroundPolling() {
+        if (backgroundPollInterval) clearInterval(backgroundPollInterval);
+        backgroundPollInterval = setInterval(fetchSystemMetrics, 10000);
+      }
+
+      function fetchStatsData() {
+        return fetch(`${monitorHost}/api/stats`)
+          .then(res => {
+            if (!res.ok) throw new Error("HTTP error");
+            return res.json();
+          })
+          .catch(err => {
+            const apiStatus = document.getElementById('monitor-api-status');
+            if (apiStatus) {
+              apiStatus.textContent = "OFFLINE - NO SIGNAL";
+              apiStatus.classList.add('offline');
+            }
+            throw err;
+          });
+      }
+
+      function fetchSystemMetrics() {
+        if (!systemPowered) return;
+        const apiStatus = document.getElementById('monitor-api-status');
+        fetchStatsData()
+          .then(data => {
+            // Cache full payload and CPU usage for sparkline drawing
+            latestStatsData = data;
+            latestCpuUsage = data.cpu.usage_percent;
+
+            // Update BIOS log cores dynamically
+            const coresEl = document.getElementById('bios-cores');
+            if (coresEl) {
+              const threads = data.cpu.threads || data.cpu.cores;
+              coresEl.textContent = `CORES: ${data.cpu.cores}C / ${threads}T @ ${(data.cpu.frequency_mhz / 1000).toFixed(2)}GHz // SYSTEM ACTIVE`;
+            }
+
+            if (apiStatus) {
+              apiStatus.textContent = "POLLING ACTIVE";
+              apiStatus.classList.remove('offline');
+            }
+
+            // 1. Update Footer stats
+            const footerUptime = document.getElementById('footer-uptime-val');
+            const footerTemp = document.getElementById('footer-temp-val');
+            const footerCpu = document.getElementById('footer-cpu-val');
+
+            if (footerUptime) {
+              const seconds = data.uptime_seconds;
+              const hours = Math.floor(seconds / 3600);
+              const minutes = Math.floor((seconds % 3600) / 60);
+              footerUptime.textContent = `${hours}h ${minutes}m`;
+            }
+
+            if (footerTemp) {
+              footerTemp.textContent = `${data.battery.temperature.toFixed(1)}°C`;
+            }
+
+            if (footerCpu) {
+              const cpuVal = data.cpu.usage_percent;
+              let statusStr = "NORMAL";
+              if (cpuVal < 30) statusStr = "LOW";
+              else if (cpuVal > 70) statusStr = "HIGH";
+              footerCpu.textContent = statusStr;
+            }
+
+            // 2. Update Monitor Dashboard panel elements if active
+            if (!monitorActive) return;
+
+            // CPU Telemetry
+            const cpuLoadVal = document.getElementById('cpu-load-val');
+            const cpuBar = document.getElementById('cpu-bar');
+            const cpuCoresVal = document.getElementById('cpu-cores-val');
+            const cpuFreqVal = document.getElementById('cpu-freq-val');
+
+            if (cpuLoadVal) cpuLoadVal.textContent = `${data.cpu.usage_percent.toFixed(1)}%`;
+            if (cpuCoresVal) {
+              const threads = data.cpu.threads || data.cpu.cores;
+              cpuCoresVal.textContent = `${data.cpu.cores}C/${threads}T`;
+            }
+            if (cpuFreqVal) cpuFreqVal.textContent = data.cpu.frequency_mhz;
+            if (cpuBar) cpuBar.textContent = makeProgressBar(data.cpu.usage_percent);
+
+            // Battery Telemetry
+            const batChargeVal = document.getElementById('bat-charge-val');
+            const batBar = document.getElementById('bat-bar');
+            const batStatusVal = document.getElementById('bat-status-val');
+            const batTempVal = document.getElementById('bat-temp-val');
+            const batHealthVal = document.getElementById('bat-health-val');
+
+            if (batChargeVal) batChargeVal.textContent = `${data.battery.percentage}%`;
+            if (batBar) batBar.textContent = makeProgressBar(data.battery.percentage);
+            if (batStatusVal) batStatusVal.textContent = data.battery.status;
+            if (batTempVal) batTempVal.textContent = data.battery.temperature.toFixed(1);
+            if (batHealthVal) batHealthVal.textContent = data.battery.health.toUpperCase();
+
+            // RAM Telemetry
+            const ramPctVal = document.getElementById('ram-pct-val');
+            const ramBar = document.getElementById('ram-bar');
+            const ramUsedVal = document.getElementById('ram-used-val');
+            const ramTotalVal = document.getElementById('ram-total-val');
+
+            const ramUsed = data.ram.used_mb;
+            const ramTotal = data.ram.total_mb;
+            const ramPct = ramTotal > 0 ? (ramUsed / ramTotal) * 100 : 0;
+
+            if (ramPctVal) ramPctVal.textContent = `${ramPct.toFixed(0)}%`;
+            if (ramBar) ramBar.textContent = makeProgressBar(ramPct);
+            if (ramUsedVal) ramUsedVal.textContent = ramUsed;
+            if (ramTotalVal) ramTotalVal.textContent = ramTotal;
+
+            // Storage Telemetry
+            const storagePctVal = document.getElementById('storage-pct-val');
+            const storageBar = document.getElementById('storage-bar');
+            const storageUsedVal = document.getElementById('storage-used-val');
+            const storageTotalVal = document.getElementById('storage-total-val');
+
+            const storeUsed = data.storage.internal.used_gb;
+            const storeTotal = data.storage.internal.total_gb;
+            const storePct = storeTotal > 0 ? (storeUsed / storeTotal) * 100 : 0;
+
+            if (storagePctVal) storagePctVal.textContent = `${storePct.toFixed(1)}%`;
+            if (storageBar) storageBar.textContent = makeProgressBar(storePct);
+            if (storageUsedVal) storageUsedVal.textContent = storeUsed.toFixed(1);
+            if (storageTotalVal) storageTotalVal.textContent = storeTotal.toFixed(1);
+
+            // Uptime
+            const uptimeVal = document.getElementById('monitor-uptime-val');
+            if (uptimeVal) {
+              const seconds = data.uptime_seconds;
+              const days = Math.floor(seconds / 86400);
+              const hours = Math.floor((seconds % 86400) / 3600);
+              const minutes = Math.floor((seconds % 3600) / 60);
+              uptimeVal.textContent = `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m`;
+            }
+          })
+          .catch(() => { });
+      }
+
+      function makeProgressBar(percent) {
+        const totalBlocks = 20;
+        const filledBlocks = Math.round((percent / 100) * totalBlocks);
+        const clampedFilled = Math.min(Math.max(filledBlocks, 0), totalBlocks);
+        return "█".repeat(clampedFilled) + "░".repeat(totalBlocks - clampedFilled);
+      }
+
+      // Close button listener
+      const closeMonitorBtn = document.getElementById('btn-close-monitor');
+      if (closeMonitorBtn) {
+        closeMonitorBtn.addEventListener('click', closeMonitor);
+      }
+
+
+      const nav = (dir) => {
+        if (!systemPowered || !systemBooted || cliActive || monitorActive) return;
+        highlightNode((currentFocusIndex + dir + nodes.length) % nodes.length);
+        playSound('beep', { freq: 280, dur: 45 });
+      };
+
+      bindNav(document.querySelector('.dpad-btn.down'), () => nav(1));
+      bindNav(document.querySelector('.dpad-btn.right'), () => nav(1));
+      bindNav(document.querySelector('.dpad-btn.up'), () => nav(-1));
+      bindNav(document.querySelector('.dpad-btn.left'), () => nav(-1));
+
+      bindNav(document.getElementById('gamepad-a'), () => {
+        if (!systemPowered || !systemBooted || monitorActive) return;
+        playSound('beep', { freq: 650, dur: 110 });
+        if (!cliActive) {
+          setTimeout(() => nodes[currentFocusIndex].click(), 110);
+        }
+      });
+
+      bindNav(document.getElementById('gamepad-b'), () => {
+        if (!systemPowered || !systemBooted) return;
+        if (monitorActive) {
+          closeMonitor();
+        } else {
+          crtBtn.click();
+        }
+      });
+
+      // Fetch dynamic homepage config
+      fetchConfig();
+
+      // Page load initialization complete
+
+      // Start background polling immediately on page load
+      fetchSystemMetrics();
+      startBackgroundPolling();
+
+      // Wait for user interaction to boot with audio support (autoplay compliance)
+      const bootOnClick = () => {
+        startOverlay.classList.add('hidden');
+        document.removeEventListener('click', bootOnClick);
+        document.removeEventListener('keydown', bootOnClick);
+        runBootSequence();
+      };
+      document.addEventListener('click', bootOnClick);
+      document.addEventListener('keydown', bootOnClick);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+# Rust build output
+target/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+#Skills files
+graphify-out/
