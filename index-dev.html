@@ -2538,7 +2538,12 @@
       let monitorActive = false;
       let monitorInterval = null;
       let backgroundPollInterval = null;
-      let monitorHost = window.location.port === '3000' ? '' : `http://${window.location.hostname}:3000`;
+      let monitorHost = '';
+      if (window.location.protocol === 'file:') {
+        monitorHost = 'http://localhost:3000';
+      } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        monitorHost = window.location.port === '3000' ? '' : `http://${window.location.hostname}:3000`;
+      }
       let pingingInterval = null;
       let latestCpuUsage = 0;
       let latestConfig = null;

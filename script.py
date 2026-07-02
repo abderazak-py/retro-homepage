@@ -112,7 +112,7 @@ def get_version():
                         return line.split("=")[1].strip().replace('"', '')
     except Exception as e:
         print(f"{RED}Error reading version from Cargo.toml: {e}{RESET}")
-    return "1.0.0"
+    return "1.0.1"
 
 def package():
     print_header("📦 PACKAGING RELEASE BINARIES 📦")

@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/Built%20with-Rust-orange?logo=rust)](https://www.rust-lang.org/)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/abderazak-py/retro-homepage/releases)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue)](https://github.com/abderazak-py/retro-homepage/releases)
 
 </div>
 
@@ -56,9 +56,9 @@ Download the latest release for your architecture from the [Releases](https://gi
 
 ```bash
 # Download and extract the latest release for x86_64
-curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.0-linux-x86_64.tar.gz
-tar -xzf retro-homepage-v1.0.0-linux-x86_64.tar.gz
-cd retro-homepage-v1.0.0-linux-x86_64
+curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.1-linux-x86_64.tar.gz
+tar -xzf retro-homepage-v1.0.1-linux-x86_64.tar.gz
+cd retro-homepage-v1.0.1-linux-x86_64
 ./retro-homepage
 ```
 
@@ -68,9 +68,9 @@ Then open `http://localhost:3000` in your browser.
 
 ```bash
 # Download and extract the latest release for ARM64
-curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.0-linux-aarch64.tar.gz
-tar -xzf retro-homepage-v1.0.0-linux-aarch64.tar.gz
-cd retro-homepage-v1.0.0-linux-aarch64
+curl -LO https://github.com/abderazak-py/retro-homepage/releases/latest/download/retro-homepage-v1.0.1-linux-aarch64.tar.gz
+tar -xzf retro-homepage-v1.0.1-linux-aarch64.tar.gz
+cd retro-homepage-v1.0.1-linux-aarch64
 pkg install termux-api   # for battery stats
 ./retro-homepage
 ```

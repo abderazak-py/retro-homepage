@@ -503,9 +503,33 @@ async fn webui_handler() -> axum::response::Html<&'static str> {
 }
 
 fn get_config_path() -> PathBuf {
-    let mut path = std::env::var("HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|_| PathBuf::from("."));
+    let mut path = if let Ok(home) = std::env::var("HOME") {
+        PathBuf::from(home)
+    } else {
+        // Try to get home directory via libc using current user's UID
+        let mut home_dir = None;
+        unsafe {
+            let uid = libc::getuid();
+            let passwd = libc::getpwuid(uid);
+            if !passwd.is_null() && !(*passwd).pw_dir.is_null() {
+                if let Ok(dir_str) = std::ffi::CStr::from_ptr((*passwd).pw_dir).to_str() {
+                    if !dir_str.is_empty() {
+                        home_dir = Some(PathBuf::from(dir_str));
+                    }
+                }
+            }
+        }
+        
+        home_dir.unwrap_or_else(|| {
+            // Fallback for Termux
+            if fs::metadata("/data/data/com.termux/files/home").is_ok() {
+                PathBuf::from("/data/data/com.termux/files/home")
+            } else {
+                // Fallback to absolute current working directory
+                std::env::current_dir().unwrap_or_else(|_| PathBuf::from("/"))
+            }
+        })
+    };
     path.push(".retro-homepage");
     path.push("config.json");
     path
